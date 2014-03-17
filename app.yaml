@@ -1,0 +1,13 @@
+application: premium-modem-518
+version: 1
+runtime: php
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /static
+  static_dir: static
+- url: /files
+  static_dir: files
+- url: .*
+  script: index.php
