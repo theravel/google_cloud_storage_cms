@@ -1,0 +1,39 @@
+body {
+    padding-top: 50px;
+}
+.center {
+    text-align: center;
+}
+.starter-template {
+    padding: 40px 15px;
+}
+.admin-login {
+    margin: 0 auto;
+    width: 300px;
+}
+.admin-users {
+    margin: 0 auto;
+    width: 500px;
+}
+.admin-pages tr {
+    cursor: pointer;
+}
+.admin-pages tr.non-draggable {
+    cursor: auto;
+}
+.admin-pages tr .ui-icon {
+    display: inline-block;
+    margin: 2px 0 0 0;
+}
+.admin-pages {
+    margin: 0 auto;
+    width: 900px;
+}
+#success-pages, #error-pages {
+    margin: 50px auto;
+    width: 900px;
+    display: none;
+}
+.admin-login input {
+    margin: 0 0 10px 0;
+}

@@ -1,0 +1,18 @@
+<div class="panel panel-default admin-users">
+    <div class="panel-heading">Admin users</div>
+
+    <table class="table">
+        <?php foreach($users as $user) { ?>
+            <tr>
+                <td><?php echo $user->login; ?></td>
+                <td width="70"><a href="/admin/userEdit/<?php echo $user->login; ?>">edit</a></td>
+                <td width="70"><a href="/admin/userDelete/<?php echo $user->login; ?>">delete</a></td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <td><a href="/admin/userNew">add new</a></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>

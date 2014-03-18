@@ -1,0 +1,40 @@
+<div class="panel panel-default admin-pages">
+    <div class="panel-heading">Pages</div>
+
+    <table class="table">
+        <tr class="non-draggable">
+            <th width="200">Url</th>
+            <th>Title</th>
+            <th width="100" class="center">Menu</th>
+            <th width="70"></th>
+            <th width="70"></th>
+        </tr>
+        <?php foreach($pages as $page) { ?>
+            <tr>
+                <td>
+                    <input type="hidden" class="hidden" value="<?php echo $page->id; ?>" />
+                    <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                    <?php echo $page->url; ?>
+                </td>
+                <td><?php echo $page->title; ?></td>
+                <td width="100" align="center">
+                    <input type="checkbox" class="menu-enabled" data-id="<?php echo $page->id; ?>" 
+                           <?php if ($page->menu) { ?> checked="checked" <?php } ?>
+                           />
+                </td>
+                <td width="70"><a href="/admin/pageEdit/<?php echo $page->id; ?>">edit</a></td>                
+                <td width="70"><a href="#" class="page-delete" data-id="<?php echo $page->id; ?>">delete</a></td>
+            </tr>
+        <?php } ?>
+        <tr class="non-draggable">
+            <td><a href="/admin/pageNew">add new</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<div class="alert alert-success" id="success-pages">Saved</div>
+<div class="alert alert-danger" id="error-pages">Not saved</div>

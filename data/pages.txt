@@ -1,0 +1,1 @@
+{"pages":[{"id":"home","url":"\/pages\/home","menu":true,"title":"home"},{"id":"about","url":"\/pages\/about","menu":true,"title":"about"}]}
