@@ -1,1 +1,1 @@
-{"pages":[{"id":"home","url":"\/pages\/home","menu":true,"title":"home"},{"id":"about","url":"\/pages\/about","menu":true,"title":"about"}]}
+{"pages":[{"id":"about","url":"\/pages\/about","menu":true,"title":"\u041e \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438"},{"id":"home","url":"\/pages\/home","menu":false,"title":"home"}]}
