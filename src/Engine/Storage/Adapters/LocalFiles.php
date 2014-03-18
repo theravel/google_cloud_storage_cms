@@ -3,6 +3,7 @@
 namespace Engine\Storage\Adapters;
 
 use Engine\Storage\Models\BaseModel;
+use Engine\Storage\Models\EntityModel;
 
 class LocalFiles implements AdapterInterface {
 
@@ -53,5 +54,13 @@ class LocalFiles implements AdapterInterface {
     public function exists($modelName, $id = null) {
         $model = $this->getModel($modelName, $id);
         return file_exists($this->getFilePath($model));
+    }
+
+    public function validateUnique(EntityModel &$model) {
+        if ($this->exists($model->getName(), $model->getId())) {
+            $model->setValidationError('Url already exists');
+            return false;
+        }
+        return true;
     }
 }

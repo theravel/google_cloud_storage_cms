@@ -2,26 +2,12 @@
 
 namespace Ui\Models;
 
-use Engine\Storage\Models\BaseModel;
+use Engine\Storage\Models\ListModel;
 
-class users extends BaseModel {
-
-    public $users = array();
+class Users extends ListModel {
 
     public function getName() {
         return 'users';
-    }
-
-    public function getType() {
-        return self::TYPE_LIST;
-    }
-
-    public function getId() {
-        
-    }
-
-    public function setId($id) {
-        
     }
 
 }

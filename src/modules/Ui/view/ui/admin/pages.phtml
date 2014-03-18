@@ -14,7 +14,7 @@
                 <td>
                     <input type="hidden" class="hidden" value="<?php echo $page->id; ?>" />
                     <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-                    <?php echo $page->url; ?>
+                    <?php echo $page->id; ?>
                 </td>
                 <td><?php echo $page->title; ?></td>
                 <td width="100" align="center">
@@ -22,12 +22,12 @@
                            <?php if ($page->menu) { ?> checked="checked" <?php } ?>
                            />
                 </td>
-                <td width="70"><a href="/admin/pageEdit/<?php echo $page->id; ?>">edit</a></td>                
+                <td width="70"><a href="/admin/pagesedit/<?php echo $page->id; ?>">edit</a></td>                
                 <td width="70"><a href="#" class="page-delete" data-id="<?php echo $page->id; ?>">delete</a></td>
             </tr>
         <?php } ?>
         <tr class="non-draggable">
-            <td><a href="/admin/pageNew">add new</a></td>
+            <td><a href="/admin/pagesnew">add new</a></td>
             <td></td>
             <td></td>
             <td></td>

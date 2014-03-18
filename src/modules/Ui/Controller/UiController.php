@@ -53,7 +53,7 @@ abstract class UiController extends AbstractActionController {
         $this->addCss('bootstrap.min.css', 'styles.css');
         $menu = array();
         $pages = $this->storage->read('pages');
-        foreach ($pages->pages as $page) {
+        foreach ($pages->entities as $page) {
             if ($page->menu) {
                 $menu[] = $page;
             }
