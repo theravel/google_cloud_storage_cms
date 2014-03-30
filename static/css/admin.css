@@ -38,3 +38,6 @@
 .admin-form textarea {
     height: 300px;
 }
+#cke_page-content {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,1 @@
+{"url":"home","title":"Home","content":"<h1>Bootstrap starter template<\/h1>\r\n\r\n<p>Use this document as a way to quickly start any new project.<br \/>\r\nAll you get is this text and a mostly barebones HTML document.<\/p>\r\n\r\n<h2>List<\/h2>\r\n\r\n<ul>\r\n\t<li>item1<\/li>\r\n\t<li>item2<\/li>\r\n<\/ul>\r\n"}

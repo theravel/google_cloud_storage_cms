@@ -2,7 +2,12 @@
     <h2 class="form-signin-heading">Edit page</h2>
     <input name="url" class="form-control" placeholder="Url" value="<?php echo $data['url']; ?>">
     <input name="title" class="form-control" placeholder="Title" value="<?php echo $data['title']; ?>">
-    <textarea name="content" class="form-control" placeholder="content"><?php echo $data['content']; ?></textarea>
+    <textarea name="content" 
+              id="page-content"
+              class="form-control" 
+              placeholder="content">
+                  <?php echo $data['content']; ?>
+    </textarea>
     <?php if ($data['errorMessage']) { ?>
         <div class="alert alert-danger">
             <?php echo $data['errorMessage']; ?>

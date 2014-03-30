@@ -4,3 +4,6 @@ body {
 .center {
     text-align: center;
 }
+.user-page-content {
+    margin: 40px 10px;
+}

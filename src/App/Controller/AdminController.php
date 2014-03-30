@@ -115,6 +115,12 @@ class AdminController extends BaseController {
     }
 
     public function pagesnewAction($checkUnique = true, Page $page = null) {
+        if ($checkUnique) {
+            $this->addJs(
+                'ckeditor/ckeditor.js',
+                'ckeditor/adapters/jquery.js'
+            );
+        }
         $url = $this->request->getPost('url', $page ? $page->url : null);
         $title = $this->request->getPost('title', $page ? $page->title : null);
         $content = $this->request->getPost('content', $page ? $page->content : null);
@@ -153,6 +159,10 @@ class AdminController extends BaseController {
     }
 
     public function pageseditAction() {
+        $this->addJs(
+            'ckeditor/ckeditor.js',
+            'ckeditor/adapters/jquery.js'
+        );
         $id = isset($this->request->params[2]) ? $this->request->params[2] : 0;
         if (!$this->storage->exists('page', $id)) {
             return $this->redirect('/admin/pages');
