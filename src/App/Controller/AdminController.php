@@ -153,7 +153,7 @@ class AdminController extends BaseController {
                                 'id' => $url,
                                 'url' => "/pages/$url",
                                 'title' => $title,
-                                'menu' => false,
+                                'menu' => $oldPage->menu,
                             );
                         }
                         $pages->entities[] = $oldPage;
