@@ -1,4 +1,1 @@
-{"entities":[
-{"login":"admin","password":""},
-{"login":"demo","password":"2a97516c354b68848cdbd8f54a226a0a55b21ed138e207ad6c5cbb9c00aa5aea"}
-]}
+{"entities":[{"login":"admin","password":"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"},{"login":"demo","password":"2a97516c354b68848cdbd8f54a226a0a55b21ed138e207ad6c5cbb9c00aa5aea"}]}

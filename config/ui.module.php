@@ -1,8 +1,9 @@
 <?php
 
 return array(
-    'view' => array(
+    'layout' => array(
         'title' => 'Test CMS',
+        'name'  => 'Project name',
     ),
     'engine_storage' => array(
         'type' => 'auto',

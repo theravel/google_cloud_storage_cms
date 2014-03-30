@@ -59,11 +59,11 @@ $(function(){
         });        
     });
 
-    $('.page-delete').on('click', function() {
+    $('.entity-delete').on('click', function() {
         var row = $(this).parents('tr');
         if (confirm('Are you sure?')) {
             $.ajax({
-                url: '/admin/pagesDelete',
+                url: $(this).attr('data-href'),
                 type: 'POST',
                 dataType: 'json',
                 data: {

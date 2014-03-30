@@ -30,7 +30,7 @@ class BaseController {
     public function init(array $config) {
         $this->config = $config;
         $this->storage = Factory::getAdapter($config['engine_storage']);
-        $this->layout['title'] = $config['view']['title'];
+        $this->layout = $config['layout'];
         $this->layout['js'] = array();
         $this->layout['css'] = array();
         $this->addCss('bootstrap.min.css', 'styles.css');

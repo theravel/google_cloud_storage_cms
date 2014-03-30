@@ -23,7 +23,13 @@
                            />
                 </td>
                 <td width="70"><a href="/admin/pagesedit/<?php echo $page->id; ?>">edit</a></td>                
-                <td width="70"><a href="#" class="page-delete" data-id="<?php echo $page->id; ?>">delete</a></td>
+                <td width="70">
+                    <a href="#" 
+                       class="entity-delete" 
+                       data-href="/admin/pagesDelete" 
+                       data-id="<?php echo $page->id; ?>"
+                       >delete</a>
+                </td>
             </tr>
         <?php } ?>
         <tr class="non-draggable">

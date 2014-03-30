@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Models\Page;
 use App\Models\Pages;
+use App\Models\Users;
 
 class AdminController extends BaseController {
 
@@ -162,5 +163,85 @@ class AdminController extends BaseController {
             $model->$key = $value;
         }
         return $this->pagesnewAction(false, $model);
+    }
+
+    public function usersDeleteAction() {
+        $login = $this->request->getPost('id');
+        $users = $this->storage->read('users');
+        $model = new Users;
+        foreach ($users->entities as $user) {
+            if ($user->login != $login) {
+                $model->entities[] = $user;
+            }
+        }
+        $this->data['success'] = $this->storage->write($model);
+        $this->renderJson = true;
+    }
+
+    public function usersnewAction($checkUnique = true, $login = null) {
+        if (!$login) {
+            $login = $this->request->getPost('login');
+        }
+        $password = $this->request->getPost('password');
+        $confirm = $this->request->getPost('confirm');
+        $errorMessage = null;
+
+        if ($this->request->isPost()) {
+            $users = $this->storage->read('users');
+            if ($checkUnique && $this->userExists($users, $login)) {
+                $errorMessage = 'User already exists';
+            }
+            $model = new Users;
+            foreach ($users->entities as $user) {
+                $model->entities[] = $user;
+            }
+            if (strlen($password) < 4) {
+                $errorMessage = 'Password length must be at least 4 characters';
+            }
+            if ($password != $confirm) {
+                $errorMessage = 'Passwords do not match';
+            }
+            if (!$errorMessage) {
+                if ($checkUnique) {
+                    $model->entities[] = (object) array(
+                        'login' => $login,
+                        'password' => $this->hash($password),
+                    );
+                } else {
+                    foreach ($model->entities as &$user) {
+                        if ($user->login == $login) {
+                            $user->password = $this->hash($password);
+                            break;
+                        }
+                    }
+                }
+                $this->storage->write($model);
+                return $this->redirect('/admin/users');
+            }
+        }
+        $this->data = array(
+            'errorMessage' => $errorMessage,
+            'login' => $login,
+        );
+    }
+
+    public function userseditAction() {
+        $login = isset($this->request->params[2]) ? $this->request->params[2] : 0;
+        $users = $this->storage->read('users');
+        if (!$this->userExists($users, $login)) {
+            return $this->redirect('/admin/users');
+        }
+        return $this->usersnewAction(false, $login);
+    }
+
+    protected function userExists($users, $login) {
+        $exists = false;
+        foreach ($users->entities as $user) {
+            if ($user->login == $login) {
+                $exists = true;
+                break;
+            }
+        }
+        return $exists;
     }
 }

@@ -5,12 +5,18 @@
         <?php foreach($data['users'] as $user) { ?>
             <tr>
                 <td><?php echo $user->login; ?></td>
-                <td width="70"><a href="/admin/userEdit/<?php echo $user->login; ?>">edit</a></td>
-                <td width="70"><a href="/admin/userDelete/<?php echo $user->login; ?>">delete</a></td>
+                <td width="70"><a href="/admin/usersEdit/<?php echo $user->login; ?>">edit</a></td>
+                <td width="70">
+                    <a href="#" 
+                       class="entity-delete" 
+                       data-href="/admin/usersDelete" 
+                       data-id="<?php echo $user->login; ?>"
+                       >delete</a>
+                </td>
             </tr>
         <?php } ?>
         <tr>
-            <td><a href="/admin/userNew">add new</a></td>
+            <td><a href="/admin/usersNew">add new</a></td>
             <td></td>
             <td></td>
         </tr>
