@@ -137,13 +137,28 @@ class AdminController extends BaseController {
             if ($page->validate()) {
                 $this->storage->write($page);
                 $pages = new Pages;
-                $pages->entities = $this->storage->read('pages')->entities;
-                $pages->entities[] = (object) array(
-                    'id' => $url,
-                    'url' => "/pages/$url",
-                    'title' => $title,
-                    'menu' => false,
-                );
+                $oldPages = $this->storage->read('pages')->entities;
+                if ($checkUnique) {
+                    $pages->entities = $oldPages;
+                    $pages->entities[] = (object) array(
+                        'id' => $url,
+                        'url' => "/pages/$url",
+                        'title' => $title,
+                        'menu' => false,
+                    );
+                } else {
+                    foreach ($oldPages as &$oldPage) {
+                        if ($oldPage->id == $url) {
+                            $oldPage = (object) array(
+                                'id' => $url,
+                                'url' => "/pages/$url",
+                                'title' => $title,
+                                'menu' => false,
+                            );
+                        }
+                        $pages->entities[] = $oldPage;
+                    }
+                }
                 $this->storage->write($pages);
                 return $this->redirect('/admin/pages');
             } else {

@@ -4,7 +4,6 @@ namespace App\Library;
 
 use App\Controller\BaseController;
 use App\Library\Routing\Router;
-use App\Library\Exceptions\RouteNotFoundException;
 
 class Bootstrap {
 
