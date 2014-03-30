@@ -1,8 +1,8 @@
 <?php
 
-namespace Engine\Storage\Adapters;
+namespace App\Library\Storage\Adapters;
 
-use Engine\Storage\Models\BaseModel;
+use App\Library\Storage\Models\BaseModel;
 
 class GoogleCloudStorage extends LocalFiles {
     

@@ -1,8 +1,8 @@
 <?php
 
-namespace Ui\Models;
+namespace App\Models;
 
-use Engine\Storage\Models\EntityModel;
+use App\Library\Storage\Models\EntityModel;
 
 class Page extends EntityModel {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Engine\Storage\Models;
+namespace App\Library\Storage\Models;
 
 abstract class BaseModel {
 

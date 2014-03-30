@@ -1,12 +1,16 @@
 <?php
 
 return array(
-    'modules' => array(
-        'Ui',
+    'view' => array(
+        'title' => 'Test CMS',
     ),
-    'module_listener_options' => array(
-        'module_paths' => array(
-            'src/modules',
+    'engine_storage' => array(
+        'type' => 'auto',
+        'models' => array(
+            'namespace' => '\App\Models',
         ),
+        'data_dir' => 'data',
+        'gcs_bucket_name' => 'premium-modem-518.appspot.com',
+        'suffix' => '.txt',
     ),
 );

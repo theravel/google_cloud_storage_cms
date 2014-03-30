@@ -1,6 +1,6 @@
 <?php
 
-namespace Engine\Storage;
+namespace App\Library\Storage;
 
 class Factory {
 
@@ -12,7 +12,7 @@ class Factory {
 
     /**
      * @param array $config
-     * @return \Engine\Storage\AdapterInterface
+     * @return App\Library\Storage\AdapterInterface
      */
     public static function getAdapter(array $config) {
         $type = $config['type'];
@@ -27,7 +27,7 @@ class Factory {
             $type = self::TYPE_LOCAL;
         }
         if (!isset(self::$adapters[$type])) {            
-            $name = '\Engine\Storage\Adapters\\' . $type;
+            $name = '\App\Library\Storage\Adapters\\' . $type;
             self::$adapters[$type] = new $name($config);
         }
         return self::$adapters[$type];

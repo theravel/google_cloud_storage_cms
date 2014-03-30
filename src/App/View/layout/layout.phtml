@@ -1,18 +1,13 @@
-<?php echo $this->doctype(); ?>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?= $this->headTitle($this->title); ?>
+        <title><?php echo $layout['title'] ?></title>
 
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
-
-        <?php foreach ($this->css as $path) { ?>
+        <?php foreach ($layout['css'] as $path) { ?>
             <link href="<?=$path?>" media="screen" rel="stylesheet" type="text/css" />
         <?php } ?>
-        <?php foreach ($this->js as $path) { ?>
+        <?php foreach ($layout['js'] as $path) { ?>
             <script type="text/javascript" src="<?=$path?>"></script>
         <?php } ?>
 
@@ -26,7 +21,7 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <?php foreach ($menu as $item) { ?>
+                        <?php foreach ($layout['menu'] as $item) { ?>
                             <li><a href="<?php echo $item->url; ?>">
                                 <?php echo $item->title; ?>
                             </a></li>
@@ -38,7 +33,7 @@
 
         <div class="container">
             <div class="starter-template">
-                <?php echo $this->content; ?>
+                <?php include $view; ?>
             </div>
                 <hr>
                 <footer>

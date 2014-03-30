@@ -1,9 +1,9 @@
 <?php
 
-namespace Engine\Storage\Adapters;
+namespace App\Library\Storage\Adapters;
 
-use Engine\Storage\Models\BaseModel;
-use Engine\Storage\Models\EntityModel;
+use App\Library\Storage\Models\BaseModel;
+use App\Library\Storage\Models\EntityModel;
 
 interface AdapterInterface {
 
