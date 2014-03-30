@@ -1,11 +1,11 @@
 <form action="" method="POST" class="admin-form">
     <h2 class="form-signin-heading">New page</h2>
-    <input name="url" class="form-control" placeholder="Url" value="<?php echo $url; ?>">
-    <input name="title" class="form-control" placeholder="Title" value="<?php echo $title; ?>">
-    <textarea name="content" class="form-control" placeholder="content"><?php echo $content; ?></textarea>
-    <?php if ($errorMessage) { ?>
+    <input name="url" class="form-control" placeholder="Url" value="<?php echo $data['url']; ?>">
+    <input name="title" class="form-control" placeholder="Title" value="<?php echo $data['title']; ?>">
+    <textarea name="content" class="form-control" placeholder="content"><?php echo $data['content']; ?></textarea>
+    <?php if ($data['errorMessage']) { ?>
         <div class="alert alert-danger">
-            <?php echo $errorMessage; ?>
+            <?php echo $data['errorMessage']; ?>
         </div>
     <?php } ?>
     <button class="btn btn-large btn-primary" type="submit">Save</button>

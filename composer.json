@@ -1,7 +1,6 @@
 {
 	"name": "gcs-engine",
 	"require": {
-		"php": ">=5.4",
-		"zendframework/zendframework": "2.2.*"
+		"php": ">=5.4"
 	}
 }

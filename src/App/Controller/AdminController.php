@@ -63,13 +63,11 @@ class AdminController extends BaseController {
 
     public function pagesAction() {
         $pages = $this->storage->read('pages');
-        return new ViewModel(array(
-            'pages' => $pages->entities,
-        ));
+        $this->data['pages'] = $pages->entities;
     }
 
     public function pagesSortAction() {
-        $order = $this->getRequest()->getPost('order');
+        $order = $this->request->getPost('order');
         $pages = $this->storage->read('pages');
         $newPages = array();
         foreach ($order as $id) {
@@ -82,14 +80,13 @@ class AdminController extends BaseController {
         }
         $model = new Pages;
         $model->entities = $newPages;
-        return new JsonModel(array(
-            'success' => $this->storage->write($model),
-        ));
+        $this->data['success'] = $this->storage->write($model);
+        $this->renderJson = true;
     }
 
     public function pagesMenuAction() {
-        $id = $this->getRequest()->getPost('id');
-        $enabled = $this->getRequest()->getPost('enabled') === 'true';
+        $id = $this->request->getPost('id');
+        $enabled = $this->request->getPost('enabled') === 'true';
         $pages = $this->storage->read('pages');
         foreach ($pages->entities as &$page) {
             if ($page->id == $id) {
@@ -99,13 +96,12 @@ class AdminController extends BaseController {
         }
         $model = new Pages;
         $model->entities = $pages->entities;
-        return new JsonModel(array(
-            'success' => $this->storage->write($model),
-        ));
+        $this->data['success'] = $this->storage->write($model);        
+        $this->renderJson = true;
     }
 
     public function pagesDeleteAction() {
-        $id = $this->getRequest()->getPost('id');
+        $id = $this->request->getPost('id');
         $pages = $this->storage->read('pages');
         $model = new Pages;
         foreach ($pages->entities as $page) {
@@ -113,18 +109,17 @@ class AdminController extends BaseController {
                 $model->entities[] = $page;
             }
         }
-        return new JsonModel(array(
-            'success' => $this->storage->write($model) && $this->storage->delete('page', $id),
-        ));
+        $this->data['success'] = $this->storage->write($model) && $this->storage->delete('page', $id);
+        $this->renderJson = true;
     }
 
     public function pagesnewAction($checkUnique = true, Page $page = null) {
-        $url = $this->getRequest()->getPost('url', $page ? $page->url : null);
-        $title = $this->getRequest()->getPost('title', $page ? $page->title : null);
-        $content = $this->getRequest()->getPost('content', $page ? $page->content : null);
+        $url = $this->request->getPost('url', $page ? $page->url : null);
+        $title = $this->request->getPost('title', $page ? $page->title : null);
+        $content = $this->request->getPost('content', $page ? $page->content : null);
         $errorMessage = null;
         
-        if ($this->getRequest()->isPost()) {
+        if ($this->request->isPost()) {
             $page = new Page;
             $page->url = $url;
             $page->title = $title;
@@ -143,23 +138,23 @@ class AdminController extends BaseController {
                     'menu' => false,
                 );
                 $this->storage->write($pages);
-                return $this->redirect()->toUrl('/admin/pages');
+                return $this->redirect('/admin/pages');
             } else {
                 $errorMessage = $page->getValidationErrors(0);
             }
         }
-        return new ViewModel(array(
+        $this->data = array(
             'errorMessage' => $errorMessage,
             'url' => $url,
             'title' => $title,
             'content' => $content,
-        ));
+        );
     }
 
     public function pageseditAction() {
-        $id = $this->getEvent()->getRouteMatch()->getParam('id');
+        $id = isset($this->request->params[2]) ? $this->request->params[2] : 0;
         if (!$this->storage->exists('page', $id)) {
-            return $this->redirect()->toUrl('/admin/pages');
+            return $this->redirect('/admin/pages');
         }
         $model = new Page;
         $page = $this->storage->read('page', $id);
