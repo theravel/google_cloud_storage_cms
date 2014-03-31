@@ -122,6 +122,7 @@ class AdminController extends BaseController {
             );
         }
         $url = $this->request->getPost('url', $page ? $page->url : null);
+        $oldUrl = $this->request->getPost('oldUrl', $page ? $page->url : null);
         $title = $this->request->getPost('title', $page ? $page->title : null);
         $content = $this->request->getPost('content', $page ? $page->content : null);
         $errorMessage = null;
@@ -135,6 +136,9 @@ class AdminController extends BaseController {
                 $this->storage->validateUnique($page);
             }
             if ($page->validate()) {
+                if ($oldUrl) {
+                    $this->storage->delete('page', $oldUrl);
+                }
                 $this->storage->write($page);
                 $pages = new Pages;
                 $oldPages = $this->storage->read('pages')->entities;
@@ -148,7 +152,7 @@ class AdminController extends BaseController {
                     );
                 } else {
                     foreach ($oldPages as &$oldPage) {
-                        if ($oldPage->id == $url) {
+                        if ($oldPage->id == $oldUrl) {
                             $oldPage = (object) array(
                                 'id' => $url,
                                 'url' => "/pages/$url",
@@ -168,6 +172,7 @@ class AdminController extends BaseController {
         $this->data = array(
             'errorMessage' => $errorMessage,
             'url' => $url,
+            'oldUrl' => $oldUrl,
             'title' => $title,
             'content' => $content,
         );

@@ -1,5 +1,6 @@
 <form action="" method="POST" class="admin-form">
     <h2 class="form-signin-heading">Edit page</h2>
+    <input name="oldUrl" type="hidden" value="<?php echo $data['oldUrl']; ?>">
     <input name="url" class="form-control" placeholder="Url" value="<?php echo $data['url']; ?>">
     <input name="title" class="form-control" placeholder="Title" value="<?php echo $data['title']; ?>">
     <textarea name="content" 
