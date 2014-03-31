@@ -274,4 +274,9 @@ class AdminController extends BaseController {
         }
         return $exists;
     }
+
+    public function uploadAction() {
+        echo $this->storage->uploadFile('upload');
+        exit;
+    }
 }

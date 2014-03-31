@@ -32,4 +32,8 @@ interface AdapterInterface {
      */
     public function validateUnique(EntityModel &$model);
 
+    /**
+     * @return string
+     */
+    public function uploadFile($fieldName);
 }

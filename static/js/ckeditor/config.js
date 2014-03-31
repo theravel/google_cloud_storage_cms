@@ -38,4 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
 
         // allow any type of content
         config.allowedContent = true;
+
+        // upload url
+        config.filebrowserUploadUrl = '/admin/upload';
 };

@@ -18,6 +18,10 @@ class LocalFiles implements AdapterInterface {
         }
     }
 
+    protected function getUploadFilePath($fieldName) {
+        return $this->config['files_dir'] . '/' . time() . '_' . $_FILES[$fieldName]['name'];
+    }
+
     /**
      * @param string $modelname
      * @return BaseModel
@@ -63,4 +67,11 @@ class LocalFiles implements AdapterInterface {
         }
         return true;
     }
+
+    public function uploadFile($fieldName) {
+        $newPath = $this->getUploadFilePath($fieldName);
+        move_uploaded_file($_FILES[$fieldName]['tmp_name'], $newPath);
+        return "/$newPath";
+    }
+
 }

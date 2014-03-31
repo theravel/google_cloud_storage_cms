@@ -23,7 +23,8 @@ class Router {
     public $request;
 
     public function __construct() {
-        $parts = explode('/', trim($_SERVER['REQUEST_URI'], ' /'));
+        list($url) = explode('?', $_SERVER['REQUEST_URI']);
+        $parts = explode('/', trim($url, ' /'));
         if (count($parts) == 1) {
             if (empty($parts[0])) {
                 $parts[0] = self::DEFAULT_CONTROLLER;
