@@ -4,6 +4,7 @@ namespace App\Library\Storage\Adapters;
 
 use App\Library\Storage\Models\BaseModel;
 use App\Library\Storage\Models\EntityModel;
+use App\Library\Exceptions\UploadException;
 
 class LocalFiles implements AdapterInterface {
 
@@ -22,6 +23,25 @@ class LocalFiles implements AdapterInterface {
         return $this->config['files_dir'] . '/' . time() . '_' . $_FILES[$fieldName]['name'];
     }
 
+    /**
+     * @throws UploadException
+     * @param string $fieldName
+     */
+    protected function validateUploadedFile($fieldName) {
+//        'extension' => array(
+//              'rule' => array('extension'),
+//              'message' => 'INVALID_EXTENSION',
+//          ),
+//          'fileSize' => array(
+//              'rule' => array('fileSize'),
+//              'message' => 'TOO_LARGE_FILE_SIZE',
+//          ),
+//          'mimeType' => array(
+//              'rule' => array('mimeType'),
+//              'message' => 'WRONG_MIME_TYPE',
+//          ),
+    }
+    
     /**
      * @param string $modelname
      * @return BaseModel
@@ -69,6 +89,7 @@ class LocalFiles implements AdapterInterface {
     }
 
     public function uploadFile($fieldName) {
+        $this->validateUploadedFile($fieldName);
         $newPath = $this->getUploadFilePath($fieldName);
         move_uploaded_file($_FILES[$fieldName]['tmp_name'], $newPath);
         return "/$newPath";

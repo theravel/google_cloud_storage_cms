@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Library\Exceptions\UploadException;
+
 use App\Models\Page;
 use App\Models\Pages;
 use App\Models\Users;
@@ -276,7 +278,11 @@ class AdminController extends BaseController {
     }
 
     public function uploadAction() {
-        echo $this->storage->uploadFile('upload');
+        try {
+            echo $this->storage->uploadFile('upload');
+        } catch (UploadException $ex) {
+            echo $ex->getMessage();
+        }
         exit;
     }
 }
