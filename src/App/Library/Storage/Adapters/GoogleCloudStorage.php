@@ -14,4 +14,8 @@ class GoogleCloudStorage extends LocalFiles {
                 return 'gs://' . $this->config['gcs_bucket_name'] . '/' . $this->config['data_dir'] . '/' . $model->getName() . $this->config['suffix'];
         }
     }
+
+    protected function getUploadFilePath($fieldName) {
+        return 'gs://' . $this->config['files_dir'] . '/' . time() . '_' . $_FILES[$fieldName]['name'];
+    }
 }

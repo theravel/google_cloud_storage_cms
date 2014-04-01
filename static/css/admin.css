@@ -41,3 +41,6 @@
 #cke_page-content {
     margin-bottom: 15px;
 }
+.cke_dialog_ui_input_file {
+    height: 40px !important;
+}

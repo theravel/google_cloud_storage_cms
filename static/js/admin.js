@@ -80,5 +80,8 @@ $(function(){
         }
     });
 
-    $('#page-content').ckeditor();
+    var textarea = $('#page-content');
+    if (textarea.length) {
+        textarea.ckeditor();
+    }
 });
