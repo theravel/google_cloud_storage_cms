@@ -6,6 +6,8 @@ use App\Models\Page;
 use App\Models\Pages;
 use App\Models\Users;
 
+use App\Library\Translate;
+
 class AdminController extends BaseController {
 
     protected function hash($string) {
@@ -162,7 +164,7 @@ class AdminController extends BaseController {
                 $this->storage->write($pages);
                 return $this->redirect('/admin/pages');
             } else {
-                $errorMessage = $page->getValidationErrors(0);
+                $errorMessage = Translate::t($page->getValidationErrors(0));
             }
         }
         $this->data = array(
@@ -214,17 +216,17 @@ class AdminController extends BaseController {
         if ($this->request->isPost()) {
             $users = $this->storage->read('users');
             if ($checkUnique && $this->userExists($users, $login)) {
-                $errorMessage = 'User already exists';
+                $errorMessage = Translate::t('User already exists');
             }
             $model = new Users;
             foreach ($users->entities as $user) {
                 $model->entities[] = $user;
             }
             if (strlen($password) < 4) {
-                $errorMessage = 'Password length must be at least 4 characters';
+                $errorMessage = Translate::t('Password length must be at least 4 characters');
             }
             if ($password != $confirm) {
-                $errorMessage = 'Passwords do not match';
+                $errorMessage = Translate::t('Passwords do not match');
             }
             if (!$errorMessage) {
                 if ($checkUnique) {
