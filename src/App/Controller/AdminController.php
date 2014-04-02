@@ -29,9 +29,9 @@ class AdminController extends BaseController {
             $this->redirect('/admin/login');
         } else {
             $menu = array(                
-                (object) array('url' => '/admin/pages',  'title' => 'Pages'),
-                (object) array('url' => '/admin/users',  'title' => 'Users'),
-                (object) array('url' => '/admin/logout', 'title' => 'Logout'),
+                (object) array('url' => '/admin/pages',  'title' => $this->t('admin_menu_pages')),
+                (object) array('url' => '/admin/users',  'title' => $this->t('admin_menu_users')),
+                (object) array('url' => '/admin/logout', 'title' => $this->t('admin_menu_logout')),
             );
             $this->layout['menu'] = $menu;
         }
@@ -170,7 +170,7 @@ class AdminController extends BaseController {
                 $this->storage->write($pages);
                 return $this->redirect('/admin/pages');
             } else {
-                $errorMessage = Translate::t($page->getValidationErrors(0));
+                $errorMessage = $this->t($page->getValidationErrors(0));
             }
         }
         $this->data = array(
@@ -223,17 +223,17 @@ class AdminController extends BaseController {
         if ($this->request->isPost()) {
             $users = $this->storage->read('users');
             if ($checkUnique && $this->userExists($users, $login)) {
-                $errorMessage = Translate::t('User already exists');
+                $errorMessage = $this->t('validation_user_exists');
             }
             $model = new Users;
             foreach ($users->entities as $user) {
                 $model->entities[] = $user;
             }
             if (strlen($password) < 4) {
-                $errorMessage = Translate::t('Password length must be at least 4 characters');
+                $errorMessage = $this->t('validation_pass_length');
             }
             if ($password != $confirm) {
-                $errorMessage = Translate::t('Passwords do not match');
+                $errorMessage = $this->t('validation_pass_do_not_match');
             }
             if (!$errorMessage) {
                 if ($checkUnique) {

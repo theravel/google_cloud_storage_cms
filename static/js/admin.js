@@ -61,7 +61,7 @@ $(function(){
 
     $('.entity-delete').on('click', function() {
         var row = $(this).parents('tr');
-        if (confirm('Are you sure?')) {
+        if (confirm($(this).attr('data-confirmation'))) {
             $.ajax({
                 url: $(this).attr('data-href'),
                 type: 'POST',

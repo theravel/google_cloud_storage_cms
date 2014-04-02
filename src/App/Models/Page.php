@@ -29,13 +29,13 @@ class Page extends EntityModel {
 
     public function validate() {
         if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_-]*$/', $this->url)) {
-            $this->setValidationError('Url must contain only English letters, numbers, hyphen or underscore');
+            $this->setValidationError('validation_url_rule');
         }
         if (empty($this->title)) {
-            $this->setValidationError('Title must be not empty');
+            $this->setValidationError('validation_title_rule');
         }
         if (empty($this->content)) {
-            $this->setValidationError('Content must be not empty');
+            $this->setValidationError('validation_content_rule');
         }
         return empty($this->validationErrors);
     }

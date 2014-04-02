@@ -1,6 +1,9 @@
 <?php
 
 return array(
+    'locale' => array(
+        'language' => 'en',
+    ),
     'layout' => array(
         'title' => 'Test CMS',
         'name'  => 'Project name',

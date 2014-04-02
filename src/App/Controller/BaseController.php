@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Library\Request;
 use App\Library\Storage\Factory;
+use App\Library\Translate;
 
 class BaseController {
 
@@ -66,6 +67,10 @@ class BaseController {
         list($controllerName, $actionName) = explode('/', $path);
         $this->request->controllerName = $controllerName;
         $this->request->actionName = $actionName;
+    }
+
+    protected function t($id) {
+        return Translate::t($id);
     }
 
     public function notFoundAction() {

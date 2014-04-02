@@ -1,11 +1,17 @@
 <form action="" method="POST" class="form-signin admin-login admin-form">
-    <h2 class="form-signin-heading">Admin panel</h2>
-    <input type="text" name="login" class="form-control" placeholder="Login">
-    <input type="password" name="password" class="form-control" placeholder="Password">
+    <h2 class="form-signin-heading"><?php echo $t('admin_login_header'); ?></h2>
+    <input type="text" 
+           name="login" 
+           class="form-control" 
+           placeholder="<?php echo $t('common_login'); ?>">
+    <input type="password" 
+           name="password" 
+           class="form-control" 
+           placeholder="<?php echo $t('common_password'); ?>">
     <?php if ($data['invalidCredentials']) { ?>
         <div class="alert alert-danger">
-            Invalid credentials
+            <?php echo $t('admin_login_invalid'); ?>
         </div>
     <?php } ?>
-    <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+    <button class="btn btn-large btn-primary" type="submit"><?php echo $t('admin_login_sign_in'); ?></button>
 </form>

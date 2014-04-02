@@ -13,6 +13,7 @@ class Bootstrap {
 
     public function __construct(array $config = array()) {
         $this->config = $config;
+        Translate::setConfig($config['locale']);
     }
 
     public function run() {

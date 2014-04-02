@@ -1,11 +1,11 @@
 <div class="panel panel-default admin-pages">
-    <div class="panel-heading">Pages</div>
+    <div class="panel-heading"><?php echo $t('pages_list_title'); ?></div>
 
     <table class="table">
         <tr class="non-draggable">
-            <th width="200">Url</th>
-            <th>Title</th>
-            <th width="100" class="center">Menu</th>
+            <th width="200"><?php echo $t('common_url'); ?></th>
+            <th><?php echo $t('common_title'); ?></th>
+            <th width="100" class="center"><?php echo $t('common_menu'); ?></th>
             <th width="70"></th>
             <th width="70"></th>
         </tr>
@@ -17,23 +17,26 @@
                     <?php echo $page->id; ?>
                 </td>
                 <td><?php echo $page->title; ?></td>
-                <td width="100" align="center">
+                <td width="150" align="center">
                     <input type="checkbox" class="menu-enabled" data-id="<?php echo $page->id; ?>" 
                            <?php if ($page->menu) { ?> checked="checked" <?php } ?>
                            />
                 </td>
-                <td width="70"><a href="/admin/pagesedit/<?php echo $page->id; ?>">edit</a></td>                
-                <td width="70">
+                <td width="100">
+                    <a href="/admin/pagesedit/<?php echo $page->id; ?>"><?php echo $t('common_edit'); ?></a>
+                </td>                
+                <td width="100">
                     <a href="#" 
                        class="entity-delete" 
+                       data-confirmation="<?php echo $t('common_are_you_sure'); ?>"
                        data-href="/admin/pagesDelete" 
                        data-id="<?php echo $page->id; ?>"
-                       >delete</a>
+                       ><?php echo $t('common_delete'); ?></a>
                 </td>
             </tr>
         <?php } ?>
         <tr class="non-draggable">
-            <td><a href="/admin/pagesnew">add new</a></td>
+            <td><a href="/admin/pagesnew"><?php echo $t('common_add_new'); ?></a></td>
             <td></td>
             <td></td>
             <td></td>

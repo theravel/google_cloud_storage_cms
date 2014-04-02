@@ -1,12 +1,18 @@
 <form action="" method="POST" class="admin-form">
-    <h2 class="form-signin-heading">Edit page</h2>
+    <h2 class="form-signin-heading"><?php echo $t('pages_edit_title'); ?></h2>
     <input name="oldUrl" type="hidden" value="<?php echo $data['oldUrl']; ?>">
-    <input name="url" class="form-control" placeholder="Url" value="<?php echo $data['url']; ?>">
-    <input name="title" class="form-control" placeholder="Title" value="<?php echo $data['title']; ?>">
+    <input name="url" 
+           class="form-control" 
+           placeholder="<?php echo $t('common_url'); ?>" 
+           value="<?php echo $data['url']; ?>">
+    <input name="title" 
+           class="form-control" 
+           placeholder="<?php echo $t('common_title'); ?>" 
+           value="<?php echo $data['title']; ?>">
     <textarea name="content" 
               id="page-content"
               class="form-control" 
-              placeholder="content">
+              placeholder="<?php echo $t('common_content'); ?>">
                   <?php echo $data['content']; ?>
     </textarea>
     <?php if ($data['errorMessage']) { ?>
@@ -14,5 +20,5 @@
             <?php echo $data['errorMessage']; ?>
         </div>
     <?php } ?>
-    <button class="btn btn-large btn-primary" type="submit">Save</button>
+    <button class="btn btn-large btn-primary" type="submit"><?php echo $t('common_save'); ?></button>
 </form>
