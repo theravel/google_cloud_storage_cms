@@ -6,6 +6,7 @@ use App\Library\Storage\Models\EntityModel;
 
 class Page extends EntityModel {
 
+    public $id;
     public $url;
     public $title;
     public $content;

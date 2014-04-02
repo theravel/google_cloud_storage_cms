@@ -4,6 +4,7 @@ return array(
     'layout' => array(
         'title' => 'Test CMS',
         'name'  => 'Project name',
+        'footer_text'  => '&copy; Company 2014',
     ),
     'engine_storage' => array(
         'type' => 'auto',

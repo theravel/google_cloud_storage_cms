@@ -4,6 +4,7 @@ namespace App\Library;
 
 use App\Controller\BaseController;
 use App\Library\Routing\Router;
+use App\Library\Translate;
 
 class Bootstrap {
 
@@ -27,6 +28,9 @@ class Bootstrap {
             echo json_encode($data);
             return;
         } else {
+            $t = function($id) {
+                return Translate::t($id);
+            };
             $layout = $controller->layout;
             $ext = $this->viewExtension;
             $prefix = dirname(__DIR__) . '/View';
