@@ -1,0 +1,16 @@
+<h2><?php echo $t('files_list_title'); ?></h2>
+
+<?php if (empty($data['files'])) { ?>
+    <div><?php echo $t('common_empty_list'); ?></div>
+<?php } else { ?>
+    <ul>
+    <?php foreach ($data['files'] as $file) { ?>
+        <li>
+            <a href="#" data-url="<?php echo $file['url']; ?>" class="file-name">
+                <?php echo $file['name']; ?>
+            </a>
+            (<a href="<?php echo $file['url']; ?>" target="_blank"><?php echo $t('common_download'); ?></a>)
+        </li>
+    <?php } ?>
+    </ul>
+<?php } ?>

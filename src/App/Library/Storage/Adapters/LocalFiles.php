@@ -19,27 +19,22 @@ class LocalFiles implements AdapterInterface {
         }
     }
 
-    protected function getUploadFilePath($fieldName) {
-        return $this->config['files_dir'] . '/' . time() . '_' . $_FILES[$fieldName]['name'];
+    protected function getUploadFilePath($fieldName, $type) {
+        return $this->config['files_dir'] . '/' . $type . '/' . $_FILES[$fieldName]['name'];
     }
 
     /**
      * @throws UploadException
      * @param string $fieldName
      */
-    protected function validateUploadedFile($fieldName) {
-//        'extension' => array(
-//              'rule' => array('extension'),
-//              'message' => 'INVALID_EXTENSION',
-//          ),
-//          'fileSize' => array(
-//              'rule' => array('fileSize'),
-//              'message' => 'TOO_LARGE_FILE_SIZE',
-//          ),
-//          'mimeType' => array(
-//              'rule' => array('mimeType'),
-//              'message' => 'WRONG_MIME_TYPE',
-//          ),
+    protected function validateUploadedFile($fieldName, $type) {
+        $nameParts = explode('.', $_FILES[$fieldName]['name']);
+        $extension = strtolower(array_pop($nameParts));
+        if (!in_array($extension, $this->config['upload'][$type]['allowed_extensions'])) {
+            throw new UploadException('upload_error_extension', implode(', ', $this->config['upload'][$type]['allowed_extensions']));
+        }
+//          'fileSize'
+//          'mimeType'
     }
     
     /**
@@ -53,6 +48,18 @@ class LocalFiles implements AdapterInterface {
             $model->setId($id);
         }
         return $model;
+    }
+
+    /**
+     * @param string $appendix
+     * @return \FilesystemIterator
+     */
+    protected function getIterator($appendix = '') {
+        $paths = array(
+            $this->config['files_dir'],
+            $appendix,
+        );
+        return new \FilesystemIterator(implode(DIRECTORY_SEPARATOR, $paths));
     }
 
     public function __construct(array $config) {
@@ -88,11 +95,24 @@ class LocalFiles implements AdapterInterface {
         return true;
     }
 
-    public function uploadFile($fieldName) {
-        $this->validateUploadedFile($fieldName);
-        $newPath = $this->getUploadFilePath($fieldName);
+    public function uploadFile($fieldName, $type) {
+        $this->validateUploadedFile($fieldName, $type);
+        $newPath = $this->getUploadFilePath($fieldName, $type);
         move_uploaded_file($_FILES[$fieldName]['tmp_name'], $newPath);
         return "/$newPath";
+    }
+
+    public function getUploadList($type) {
+        $entities = array();
+        foreach ($this->getIterator($type) as $path) {
+            if ($path->isFile()) {
+                $entities[] = array(
+                    'name' => $path->getFilename(),
+                    'url' => '/' . $this->config['files_dir'] . '/' . $type . '/' . $path->getFilename(),
+                );
+            }
+        }
+        return $entities;
     }
 
 }

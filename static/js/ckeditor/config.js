@@ -40,8 +40,8 @@ CKEDITOR.editorConfig = function( config ) {
         config.allowedContent = true;
 
         // uploads handling
-        config.filebrowserBrowseUrl = '/admin/serveuploads';
-        config.filebrowserImageBrowseUrl = '/admin/serveuploads';
-        config.filebrowserUploadUrl = '/admin/upload';
-        config.filebrowserImageUploadUrl = '/admin/upload';
+        config.filebrowserBrowseUrl = '/admin/servefiles';
+        config.filebrowserImageBrowseUrl = '/admin/serveimages';
+        config.filebrowserUploadUrl = '/admin/uploadfile';
+        config.filebrowserImageUploadUrl = '/admin/uploadimage';
 };

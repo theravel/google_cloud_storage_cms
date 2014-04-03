@@ -13,6 +13,8 @@ return array(
     'common_content' => 'Content',
     'common_menu' => 'Menu',
     'common_are_you_sure' => 'Are you sure?',
+    'common_download' => 'download',
+    'common_empty_list' => 'List is empty so far',
     'page_not_found' => 'Page not found',
     'validation_user_exists' => 'User already exists',
     'validation_pass_length' => 'Password length must be at least 4 characters',
@@ -35,5 +37,7 @@ return array(
     'pages_create_title' => 'New page',
     'pages_list_title' => 'Pages',
     'files_list_title' => 'List of uploaded files',
-    'files_list_description' => '...',
+    'upload_error' => 'Upload error',
+    'upload_success' => 'Successfully uploaded',
+    'upload_error_extension' => 'only such file extensions are allowed: %s',
 );

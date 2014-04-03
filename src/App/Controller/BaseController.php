@@ -20,7 +20,7 @@ class BaseController {
      */
     public $request;
 
-    public $layout = 'ayout/layout';
+    public $layout = 'layout/layout';
     public $layoutData = array();
     public $data = array();
     public $renderJson = false;

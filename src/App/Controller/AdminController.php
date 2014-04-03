@@ -18,6 +18,17 @@ class AdminController extends BaseController {
         return hash('sha256', $string, false);
     }
 
+    protected function userExists($users, $login) {
+        $exists = false;
+        foreach ($users->entities as $user) {
+            if ($user->login == $login) {
+                $exists = true;
+                break;
+            }
+        }
+        return $exists;
+    }
+
     public function init(array $config) {
         parent::init($config);
         $this->addCss('ui-lightness/jquery-ui-1.10.4.custom.min.css', 'admin.css');
@@ -264,31 +275,38 @@ class AdminController extends BaseController {
         return $this->usersnewAction(false, $login);
     }
 
-    protected function userExists($users, $login) {
-        $exists = false;
-        foreach ($users->entities as $user) {
-            if ($user->login == $login) {
-                $exists = true;
-                break;
-            }
-        }
-        return $exists;
-    }
-
-    public function serveuploadsAction() {
+    public function servefilesAction() {
         $this->layout = 'layout/files';
         $this->addJs('files.js');
-        $this->data['files'] = ['aaa', 'bbb'];
+        $this->data['files'] = $this->storage->getUploadList('files');
     }
 
-    public function uploadAction() {
-        // https://developers.google.com/appengine/docs/php/googlestorage/public_access
-        // https://developers.google.com/appengine/docs/php/googlestorage/images
+    public function serveimagesAction() {
+        $this->layout = 'layout/files';
+        $this->addJs('files.js');
+        $this->data['files'] = $this->storage->getUploadList('images');
+    }
+
+    public function uploadfileAction($type = 'files') {
+        // https://developers.google.com/appengine/docs/php/googlestorage/public_access        
+        $this->layout = false;
+        $this->data = array(
+            'link' => null,
+            'error' => null,
+        );
         try {
-            echo $this->storage->uploadFile('upload');
+            $this->data['link'] = $this->storage->uploadFile('upload', $type);
         } catch (UploadException $ex) {
-            echo $ex->getMessage();
+            $this->data['error'] = sprintf(
+                $this->t($ex->getMessage()),
+                $ex->getDetails()
+            );
         }
-        exit;
+        $this->render('admin/upload');
+    }
+
+    public function uploadimageAction() {
+        // https://developers.google.com/appengine/docs/php/googlestorage/images
+        $this->uploadfileAction('images');
     }
 }
