@@ -26,9 +26,7 @@ return array(
                     'gif',
                     'png',
                 ),
-                'allowed_types' => array(
-                    '',
-                ),
+                'max_size' => 3 * 1024 * 1024, // bytes
             ),
             'files' => array(
                 'allowed_extensions' => array(
@@ -38,10 +36,10 @@ return array(
                     'xlsx',
                     'pdf',
                     'txt',
+                    'zip',
+                    'rar',
                 ),
-                'allowed_types' => array(
-                    '',
-                ),
+                'max_size' => 10 * 1024 * 1024, // bytes
             ),
         ),
     ),

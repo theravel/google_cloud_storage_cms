@@ -40,4 +40,5 @@ return array(
     'upload_error' => 'Ошибка загрузки',
     'upload_success' => 'Успешно загружено',
     'upload_error_extension' => 'разрешены только следующие типы файлов: %s',
+    'upload_error_size' => 'размер файла должен быть меньше %dМБ',
 );

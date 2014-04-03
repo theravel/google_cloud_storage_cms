@@ -40,4 +40,5 @@ return array(
     'upload_error' => 'Upload error',
     'upload_success' => 'Successfully uploaded',
     'upload_error_extension' => 'only such file extensions are allowed: %s',
+    'upload_error_size' => 'file size must be less %dMB',
 );
