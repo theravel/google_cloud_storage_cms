@@ -27,16 +27,19 @@ class Bootstrap {
         $data = $controller->data;
         if ($controller->renderJson) {
             echo json_encode($data);
-            return;
         } else {
             $t = function($id) {
                 return Translate::t($id);
             };
-            $layout = $controller->layout;
+            $layout = $controller->layoutData;
             $ext = $this->viewExtension;
             $prefix = dirname(__DIR__) . '/View';
             $view = "$prefix/{$controller->request->controllerName}/{$controller->request->actionName}.$ext";
-            include "$prefix/layout/layout.$ext";
+            if ($controller->layout) {
+                include "$prefix/{$controller->layout}.$ext";
+            } else {
+                include $view;
+            }
         }
     }
 }

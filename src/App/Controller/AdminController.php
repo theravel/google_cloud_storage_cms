@@ -12,6 +12,8 @@ use App\Library\Translate;
 
 class AdminController extends BaseController {
 
+    public $layout = 'layout/admin';
+
     protected function hash($string) {
         return hash('sha256', $string, false);
     }
@@ -27,13 +29,6 @@ class AdminController extends BaseController {
         }
         if (!isset($_SESSION['user'])) {
             $this->redirect('/admin/login');
-        } else {
-            $menu = array(                
-                (object) array('url' => '/admin/pages',  'title' => $this->t('admin_menu_pages')),
-                (object) array('url' => '/admin/users',  'title' => $this->t('admin_menu_users')),
-                (object) array('url' => '/admin/logout', 'title' => $this->t('admin_menu_logout')),
-            );
-            $this->layout['menu'] = $menu;
         }
     }
 
@@ -42,6 +37,7 @@ class AdminController extends BaseController {
     }
 
     public function loginAction() {
+        $this->layout = 'layout/layout';
         $invalidCredentials = false;
         if ($this->request->isPost()) {
             $users = $this->storage->read('users');
@@ -279,7 +275,15 @@ class AdminController extends BaseController {
         return $exists;
     }
 
+    public function serveuploadsAction() {
+        $this->layout = 'layout/files';
+        $this->addJs('files.js');
+        $this->data['files'] = ['aaa', 'bbb'];
+    }
+
     public function uploadAction() {
+        // https://developers.google.com/appengine/docs/php/googlestorage/public_access
+        // https://developers.google.com/appengine/docs/php/googlestorage/images
         try {
             echo $this->storage->uploadFile('upload');
         } catch (UploadException $ex) {

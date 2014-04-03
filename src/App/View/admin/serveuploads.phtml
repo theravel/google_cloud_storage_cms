@@ -1,0 +1,15 @@
+<h2><?php echo $t('files_list_title'); ?></h2>
+<p><?php echo $t('files_list_description'); ?></p>
+
+<ul>
+    <?php foreach ($data['files'] as $file) { ?>
+    <li>
+        <a href="<?php echo $file; ?>" 
+           data-url="<?php echo $file; ?>" 
+           target="_blank"
+           >
+            <?php echo $file; ?>
+        </a>
+    </li>
+    <?php } ?>
+</ul>

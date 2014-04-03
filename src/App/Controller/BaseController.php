@@ -20,7 +20,8 @@ class BaseController {
      */
     public $request;
 
-    public $layout = array();
+    public $layout = 'ayout/layout';
+    public $layoutData = array();
     public $data = array();
     public $renderJson = false;
 
@@ -31,9 +32,9 @@ class BaseController {
     public function init(array $config) {
         $this->config = $config;
         $this->storage = Factory::getAdapter($config['engine_storage']);
-        $this->layout = $config['layout'];
-        $this->layout['js'] = array();
-        $this->layout['css'] = array();
+        $this->layoutData = $config['layout'];
+        $this->layoutData['js'] = array();
+        $this->layoutData['css'] = array();
         $this->addCss('bootstrap.min.css', 'styles.css');
         $menu = array();
         $pages = $this->storage->read('pages');
@@ -42,15 +43,15 @@ class BaseController {
                 $menu[] = $page;
             }
         }
-        $this->layout['menu'] = $menu;
+        $this->layoutData['menu'] = $menu;
     }
 
     private function addLayoutEntity($type, array $values) {
         foreach ($values as $path) {
             if (strpos($path, 'http') !== 0) {
-                $this->layout[$type][] = "/static/$type/$path";
+                $this->layoutData[$type][] = "/static/$type/$path";
             } else {
-                $this->layout[$type][] = $path;
+                $this->layoutData[$type][] = $path;
             }
         }
     }

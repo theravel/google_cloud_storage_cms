@@ -34,4 +34,6 @@ return array(
     'pages_edit_title' => 'Редактировать страницу',
     'pages_create_title' => 'Новая страница',
     'pages_list_title' => 'Страницы',
+    'files_list_title' => 'List of uploaded files',
+    'files_list_description' => '...',
 );

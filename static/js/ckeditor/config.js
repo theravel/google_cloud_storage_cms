@@ -39,6 +39,9 @@ CKEDITOR.editorConfig = function( config ) {
         // allow any type of content
         config.allowedContent = true;
 
-        // upload url
+        // uploads handling
+        config.filebrowserBrowseUrl = '/admin/serveuploads';
+        config.filebrowserImageBrowseUrl = '/admin/serveuploads';
         config.filebrowserUploadUrl = '/admin/upload';
+        config.filebrowserImageUploadUrl = '/admin/upload';
 };

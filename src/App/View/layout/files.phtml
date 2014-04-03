@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title><?php echo $layout['title'] ?></title>
+
+        <?php foreach ($layout['css'] as $path) { ?>
+            <link href="<?=$path?>" media="screen" rel="stylesheet" type="text/css" />
+        <?php } ?>
+        <?php foreach ($layout['js'] as $path) { ?>
+            <script type="text/javascript" src="<?=$path?>"></script>
+        <?php } ?>
+
+    </head>
+
+    <body class="files-list">
+        <div class="container">
+            <?php include $view; ?>
+        </div>
+    </body>
+</html>

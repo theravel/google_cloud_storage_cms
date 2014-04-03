@@ -34,4 +34,6 @@ return array(
     'pages_edit_title' => 'Edit page',
     'pages_create_title' => 'New page',
     'pages_list_title' => 'Pages',
+    'files_list_title' => 'List of uploaded files',
+    'files_list_description' => '...',
 );

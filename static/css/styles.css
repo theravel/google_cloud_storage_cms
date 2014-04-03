@@ -1,6 +1,9 @@
 body {
     padding-top: 50px;
 }
+.files-list {
+    padding-top: 0;
+}
 .center {
     text-align: center;
 }
