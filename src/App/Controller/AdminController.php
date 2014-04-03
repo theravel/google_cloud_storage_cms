@@ -8,8 +8,6 @@ use App\Models\Page;
 use App\Models\Pages;
 use App\Models\Users;
 
-use App\Library\Translate;
-
 class AdminController extends BaseController {
 
     public $layout = 'layout/admin';
