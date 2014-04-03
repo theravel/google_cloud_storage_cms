@@ -286,7 +286,6 @@ class AdminController extends BaseController {
     }
 
     public function uploadfileAction($type = 'files') {
-        // https://developers.google.com/appengine/docs/php/googlestorage/public_access        
         $this->layout = false;
         $this->data = array(
             'link' => null,
@@ -304,7 +303,6 @@ class AdminController extends BaseController {
     }
 
     public function uploadimageAction() {
-        // https://developers.google.com/appengine/docs/php/googlestorage/images
         $this->uploadfileAction('images');
     }
 }

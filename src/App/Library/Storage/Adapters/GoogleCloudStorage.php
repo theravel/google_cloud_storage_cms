@@ -18,4 +18,26 @@ class GoogleCloudStorage extends LocalFiles {
     protected function getUploadFilePath($fieldName) {
         return 'gs://' . $this->config['files_dir'] . '/' . time() . '_' . $_FILES[$fieldName]['name'];
     }
+
+    public function uploadFile($fieldName, $type) {
+        $this->validateUploadedFile($fieldName, $type);
+        $newPath = $this->getUploadFilePath($fieldName, $type);
+        move_uploaded_file($_FILES[$fieldName]['tmp_name'], $newPath);
+        return "/$newPath";
+    }
+
+    public function getUploadList($type) {  // files images      
+        // https://developers.google.com/appengine/docs/php/googlestorage/public_access 
+        // https://developers.google.com/appengine/docs/php/googlestorage/images
+        $entities = array();
+        foreach ($this->getIterator($type) as $path) {
+            if ($path->isFile()) {
+                $entities[] = array(
+                    'name' => $path->getFilename(),
+                    'url' => '/' . $this->config['files_dir'] . '/' . $type . '/' . $path->getFilename(),
+                );
+            }
+        }
+        return $entities;
+    }
 }
