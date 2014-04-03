@@ -184,6 +184,8 @@ class AdminController extends BaseController {
             'oldUrl' => $oldUrl,
             'title' => $title,
             'content' => $content,
+            'uploadFileUrl' => $this->storage->getUploadUrl('/admin/uploadfile'),
+            'uploadImageUrl' => $this->storage->getUploadUrl('/admin/uploadimage'),
         );
     }
 

@@ -3,14 +3,13 @@
 <?php if (empty($data['files'])) { ?>
     <div><?php echo $t('common_empty_list'); ?></div>
 <?php } else { ?>
-    <ul>
-    <?php foreach ($data['files'] as $file) { ?>
-        <li>
+    <div class="serve-images">
+        <?php foreach ($data['files'] as $file) { ?>
             <a href="#" data-url="<?php echo $file['url']; ?>" class="file-name">
-                <?php echo $file['name']; ?>
+                <img src="<?php echo $file['url']; ?>"
+                     alt=""
+                     width="200" />
             </a>
-            (<a href="<?php echo $file['url']; ?>" target="_blank"><?php echo $t('common_download'); ?></a>)
-        </li>
-    <?php } ?>
-    </ul>
+        <?php } ?>
+    </div>
 <?php } ?>

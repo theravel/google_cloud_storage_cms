@@ -47,3 +47,6 @@
 .cke_dialog_ui_input_file {
     height: 60px !important;
 }
+.serve-images img {
+    margin: 10px;
+}

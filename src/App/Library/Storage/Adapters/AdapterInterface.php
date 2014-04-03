@@ -33,6 +33,12 @@ interface AdapterInterface {
     public function validateUnique(EntityModel &$model);
 
     /**
+     * @param string $url
+     * @return string
+     */
+    public function getUploadUrl($url);
+
+    /**
      * @return array
      */
     public function getUploadList($type);

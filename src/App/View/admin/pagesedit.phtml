@@ -1,5 +1,7 @@
 <form action="" method="POST" class="admin-form">
     <h2 class="form-signin-heading"><?php echo $t('pages_edit_title'); ?></h2>
+    <input id="upload-file-url" type="hidden" value="<?php echo $data['uploadFileUrl']; ?>" />
+    <input id="upload-image-url" type="hidden" value="<?php echo $data['uploadImageUrl']; ?>" />
     <input name="oldUrl" type="hidden" value="<?php echo $data['oldUrl']; ?>">
     <input name="url" 
            class="form-control" 

@@ -116,4 +116,8 @@ class LocalFiles implements AdapterInterface {
         return $entities;
     }
 
+    public function getUploadUrl($url) {
+        return $url;
+    }
+
 }

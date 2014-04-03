@@ -82,6 +82,12 @@ $(function(){
 
     var textarea = $('#page-content');
     if (textarea.length) {
-        textarea.ckeditor();
+        textarea.ckeditor(
+            function() {},
+            {
+                filebrowserUploadUrl: $('#upload-file-url').val(),
+                filebrowserImageUploadUrl: $('#upload-image-url').val()
+            }
+        );
     }
 });
