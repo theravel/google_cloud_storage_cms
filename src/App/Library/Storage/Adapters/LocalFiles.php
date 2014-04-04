@@ -31,9 +31,11 @@ class LocalFiles implements AdapterInterface {
         $nameParts = explode('.', $_FILES[$fieldName]['name']);
         $extension = strtolower(array_pop($nameParts));
         if (!in_array($extension, $this->config['upload'][$type]['allowed_extensions'])) {
+            unlink($_FILES[$fieldName]['tmp_name']);
             throw new UploadException('upload_error_extension', implode(', ', $this->config['upload'][$type]['allowed_extensions']));
         }
         if (filesize($_FILES[$fieldName]['tmp_name']) > $this->config['upload'][$type]['max_size']) {
+            unlink($_FILES[$fieldName]['tmp_name']);
             throw new UploadException('upload_error_size', round($this->config['upload'][$type]['max_size'] / (1024 * 1024)));
         }
     }
