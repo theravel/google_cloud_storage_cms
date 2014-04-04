@@ -90,4 +90,15 @@ $(function(){
             }
         );
     }
+
+    $(document).on('mouseenter', '.cke_dialog_ui_fileButton:visible', function(){
+        var element = $('iframe.cke_dialog_ui_input_file:visible').contents().find('form[enctype="multipart/form-data"]');
+        if (!element.length || element.data('processed')) {
+            return;
+        }
+        element.data('processed', true);
+        var action = element.attr('action').split('?');
+        action.pop();
+        element.attr('action', action.join('?'));
+    });
 });

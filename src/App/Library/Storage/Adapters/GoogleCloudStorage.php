@@ -54,7 +54,9 @@ class GoogleCloudStorage extends LocalFiles {
                 'acl' => 'public-read',
              ),
         ));
-        move_uploaded_file($_FILES[$fieldName]['tmp_name'], $newPath);
+        // http://stackoverflow.com/questions/21545873/google-cloud-storage-error-on-upload-strpos-empty-needle
+        copy($_FILES[$fieldName]['tmp_name'], $newPath);
+        unlink($_FILES[$fieldName]['tmp_name']);
         return $this->getPublicUploadUrl($type, $_FILES[$fieldName]['name']);
     }
 
