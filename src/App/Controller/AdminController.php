@@ -79,7 +79,13 @@ class AdminController extends BaseController {
             $this->data['saved'] = true;
         }
         $settings = $this->storage->read('settings');
-        $this->data['pages'] = $pages = $this->storage->read('pages')->entities;
+        $pages = array();
+        foreach ($this->storage->read('pages')->entities as $page) {
+            if (!$page->news) {
+                $pages[] = $page;
+            }
+        }
+        $this->data['pages'] = $pages;
         $this->data['title'] = $settings->title;
         $this->data['menu'] = json_encode($settings->entities);
     }
