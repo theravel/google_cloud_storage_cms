@@ -10,4 +10,14 @@ class Pages extends ListModel {
         return 'pages';
     }
 
+    public function sort() {
+        $entities = $this->entities;
+        uasort($entities, function($a, $b) {
+            return $a->date < $b->date ? 1 : -1;
+        });
+        $this->entities = array();
+        foreach ($entities as $entity) {
+            $this->entities[] = $entity;
+        }
+    }
 }

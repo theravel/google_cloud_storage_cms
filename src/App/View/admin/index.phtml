@@ -1,4 +1,47 @@
-<div class="alert alert-info">
-    <h4><?php echo $t('admin_index_header'); ?></h4>
-    <p><?php echo $t('admin_index_text'); ?></p>
-</div>
+<form class="index-form" method="POST">
+    <?php if ($data['saved']) { ?>
+        <div class="alert alert-success"><?php echo $t('common_saved'); ?></div>
+    <?php } ?>
+
+    <div>
+        <h2><?php echo $t('admin_index_title'); ?></h2>
+        <textarea name="title" class="site-title"><?php echo $data['title']; ?></textarea>
+    </div>
+
+    <div class="admin-menu-container">
+        <h2><?php echo $t('admin_index_menu'); ?></h2>
+        <div class="tree-buttons">
+            <button type="button" class="btn btn-success btn-sm" id="menu-create">
+                <i class="glyphicon glyphicon-asterisk"></i> 
+                <?php echo $t('common_add_new'); ?>
+            </button>
+            <button type="button" class="btn btn-warning btn-sm" id="menu-rename">
+                <i class="glyphicon glyphicon-pencil"></i>
+                <?php echo $t('common_edit'); ?>
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" id="menu-delete">
+                <i class="glyphicon glyphicon-remove"></i>
+                <?php echo $t('common_delete'); ?>
+            </button>
+            <div class="item-link-block">
+                <select id="item-link">
+                    <option value=""></option>
+                    <?php foreach ($data['pages'] as $page) { ?>
+                        <option value="<?php echo $page->url; ?>">
+                            <?php echo $page->title; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+                <button type="button" class="btn btn-success btn-sm" id="item-change">
+                    <?php echo $t('common_save'); ?>
+                </button>
+            </div>
+        </div>
+        <input type="hidden" id="menu-root" value="<?php echo $t('admin_index_menu_root'); ?>" />
+        <input type="hidden" id="menu-items" value="<?php echo htmlspecialchars($data['menu']); ?>" />
+        <input type="hidden" name="new_items" id="new-items" value="" />
+        <div id="menu-tree"></div>
+    </div>
+
+    <button class="btn btn-large btn-primary" type="submit"><?php echo $t('common_save'); ?></button>
+</form>

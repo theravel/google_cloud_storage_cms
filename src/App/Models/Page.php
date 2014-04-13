@@ -8,7 +8,9 @@ class Page extends EntityModel {
 
     public $id;
     public $url;
+    public $news;
     public $title;
+    public $short;
     public $content;
 
     public function getName() {
@@ -36,6 +38,9 @@ class Page extends EntityModel {
         }
         if (empty($this->content)) {
             $this->setValidationError('validation_content_rule');
+        }
+        if ($this->news && empty($this->short)) {
+            $this->setValidationError('validation_short_rule');
         }
         return empty($this->validationErrors);
     }

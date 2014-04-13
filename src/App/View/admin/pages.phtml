@@ -5,7 +5,6 @@
         <tr class="non-draggable">
             <th width="200"><?php echo $t('common_url'); ?></th>
             <th><?php echo $t('common_title'); ?></th>
-            <th width="100" class="center"><?php echo $t('common_menu'); ?></th>
             <th width="70"></th>
             <th width="70"></th>
         </tr>
@@ -13,15 +12,9 @@
             <tr>
                 <td>
                     <input type="hidden" class="hidden" value="<?php echo $page->id; ?>" />
-                    <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
                     <?php echo $page->id; ?>
                 </td>
                 <td><?php echo $page->title; ?></td>
-                <td width="150" align="center">
-                    <input type="checkbox" class="menu-enabled" data-id="<?php echo $page->id; ?>" 
-                           <?php if ($page->menu) { ?> checked="checked" <?php } ?>
-                           />
-                </td>
                 <td width="100">
                     <a href="/admin/pagesedit/<?php echo $page->id; ?>"><?php echo $t('common_edit'); ?></a>
                 </td>                
@@ -40,10 +33,9 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
         </tr>
     </table>
 </div>
 
-<div class="alert alert-success" id="success-pages">Saved</div>
-<div class="alert alert-danger" id="error-pages">Not saved</div>
+<div class="alert alert-success" id="success-pages"><?php echo $t('common_saved'); ?></div>
+<div class="alert alert-danger" id="error-pages"><?php echo $t('common_failed'); ?></div>

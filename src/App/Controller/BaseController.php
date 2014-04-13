@@ -32,18 +32,16 @@ class BaseController {
     public function init(array $config) {
         $this->config = $config;
         $this->storage = Factory::getAdapter($config['engine_storage']);
-        $this->layoutData = $config['layout'];
         $this->layoutData['js'] = array();
-        $this->layoutData['css'] = array();
+        $this->layoutData['css'] = array();        
         $this->addCss('bootstrap.min.css', 'styles.css');
-        $menu = array();
-        $pages = $this->storage->read('pages');
-        foreach ($pages->entities as $page) {
-            if ($page->menu) {
-                $menu[] = $page;
-            }
-        }
-        $this->layoutData['menu'] = $menu;
+        $this->addJs('jquery-1.10.2.js',  'main.js');
+
+        $settings = $this->storage->read('settings');
+        $this->layoutData['title'] = $settings->title;
+        $this->layoutData['name'] = $settings->title;
+        $this->layoutData['menu'] = $settings->entities;
+        $this->layoutData['news'] = $settings = $this->getNews();
     }
 
     private function addLayoutEntity($type, array $values) {
@@ -79,6 +77,16 @@ class BaseController {
         $this->render('error/index');
     }
     
+    protected function getNews() {
+        $result = array();
+        foreach ($this->storage->read('pages')->entities as $page) {
+            if ($page->news) {
+                $result[] = $page;
+            }
+        }
+        return array_slice($result, 0, $this->config['news']['max_size']);
+    }
+
     public function __call($name, $args) {
         $this->notFoundAction();
     }

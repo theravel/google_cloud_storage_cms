@@ -1,5 +1,21 @@
 body {
-    padding-top: 50px;
+    ;
+}
+.project-name {
+    background: #222;
+    font-size: 20px;
+    padding: 10px 20px !important;
+    margin: 0;
+    border-radius: 0;
+}
+.project-name a {
+    text-decoration: none;
+    color: #ccc;
+}
+.main-menu {
+    background: #555;
+    color: #fff;
+    border-radius: 0;
 }
 .files-list {
     padding-top: 0;
@@ -8,5 +24,46 @@ body {
     text-align: center;
 }
 .user-page-content {
-    margin: 40px 10px;
+    margin: 0px 10px 50px;
+}
+.nav > li a,
+.nav > li > span {
+    position: relative;
+    display: block;
+    padding: 15px;
+    line-height: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.nav > li a:hover,
+.nav > li > span:hover {
+    background: #888;
+}
+.submenu {
+    display: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    min-width: 100%;
+    background: #555;
+    z-index: 2;
+}
+.submenu li {
+    list-style-type: none;
+}
+.nav > li > a {
+    color: #fff !important;
+}
+.nav > li .submenu a {
+    padding: 8px 15px;
+    color: #fff;
+}
+.news-item {
+    margin: 0 0 15px 0;
+}
+.news-short {
+    margin: 0;
+}
+.news-date {
+    font-size: 10px;
 }

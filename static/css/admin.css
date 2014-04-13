@@ -5,15 +5,8 @@
     margin: 0 auto;
     width: 500px;
 }
-.admin-pages tr {
-    cursor: pointer;
-}
 .admin-pages tr.non-draggable {
     cursor: auto;
-}
-.admin-pages tr .ui-icon {
-    display: inline-block;
-    margin: 2px 0 0 0;
 }
 .admin-pages {
     margin: 0 auto;
@@ -35,7 +28,15 @@
 .admin-form input {
     margin: 0 0 10px 0;
 }
-.admin-form textarea {
+.admin-form #page-short {
+    height: 100px;
+    margin-bottom: 10px;
+    display: none;
+}
+.admin-form #page-short.visible {
+    display: block;
+}
+.admin-form #page-content {
     height: 300px;
 }
 #cke_page-content {
@@ -49,4 +50,26 @@
 }
 .serve-images img {
     margin: 10px;
+}
+.admin-menu-container {
+    margin: 0 0 50px 0;
+}
+.site-title {
+    width: 50%;
+    height: 70px;
+}
+.tree-buttons {
+    margin: 0 0 10px 0;
+}
+.tree-buttons button {
+    text-transform: capitalize;
+}
+.item-link-block {
+    display: inline-block;
+    margin: 0 0 0 80px;
+    visibility: hidden;
+}
+#item-link {
+    min-width: 200px;
+    padding: 3px 0;
 }

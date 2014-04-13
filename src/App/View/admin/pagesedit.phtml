@@ -2,7 +2,9 @@
     <h2 class="form-signin-heading"><?php echo $t('pages_edit_title'); ?></h2>
     <input id="upload-file-url" type="hidden" value="<?php echo $data['uploadFileUrl']; ?>" />
     <input id="upload-image-url" type="hidden" value="<?php echo $data['uploadImageUrl']; ?>" />
-    <input name="oldUrl" type="hidden" value="<?php echo $data['oldUrl']; ?>">
+    <input name="oldUrl" type="hidden" value="<?php echo $data['oldUrl']; ?>"><label for="is-news"><?php echo $t('common_is_news'); ?></label>
+    <input type="checkbox" id="is-news" name="news" 
+           <?php echo $data['news'] ? 'checked="checked"' : ''; ?> />
     <input name="url" 
            class="form-control" 
            placeholder="<?php echo $t('common_url'); ?>" 
@@ -11,6 +13,10 @@
            class="form-control" 
            placeholder="<?php echo $t('common_title'); ?>" 
            value="<?php echo $data['title']; ?>">
+    <textarea name="short" 
+              placeholder="<?php echo $t('common_short'); ?>" 
+              class="form-control <?php echo $data['news'] ? 'visible' : ''; ?>"
+              id="page-short"><?php echo $data['short']; ?></textarea>
     <textarea name="content" 
               id="page-content"
               class="form-control" 

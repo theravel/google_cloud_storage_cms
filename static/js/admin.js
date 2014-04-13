@@ -16,49 +16,6 @@ $(function(){
         }, 4000);
     }
 
-    $('.admin-pages table tbody').sortable({
-        placeholder: 'ui-state-highlight',
-        cancel: '.non-draggable',
-        stop: function(event, ui) {
-           var order = [];
-           $('.admin-pages table tr:not(.non-draggable)').each(function(){
-               order.push($(this).find('.hidden').val());
-           });
-           clearTimeout(timer);
-           $.ajax({
-               url: '/admin/pagesSort',
-               type: 'POST',
-               dataType: 'json',
-               data: {order: order},
-               success: function(data) {
-                   showResult(data.success);
-               },
-               error: function() {
-                   showResult(false);
-               }
-           });
-        }
-    });
-
-    $('.menu-enabled').on('change', function(){
-        clearTimeout(timer);
-        $.ajax({
-            url: '/admin/pagesMenu',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                id: $(this).attr('data-id'),
-                enabled: $(this).is(':checked')
-            },
-            success: function(data) {
-                showResult(data.success);
-            },
-            error: function() {
-                showResult(false);
-            }
-        });        
-    });
-
     $('.entity-delete').on('click', function() {
         var row = $(this).parents('tr');
         if (confirm($(this).attr('data-confirmation'))) {
@@ -90,4 +47,97 @@ $(function(){
             }
         );
     }
+    
+    var getMenu = function() {
+        var menu = JSON.parse($('#menu-items').val());
+        for (var i = 0; i < menu.length; i++) {
+            menu[i].state = {opened : true};
+            menu[i].type = 'menu';
+            menu[i].data = menu[i].link;
+            for (var j = 0; j < menu[i].children.length; j++) {
+                menu[i].children[j].data = menu[i].children[j].link;
+                menu[i].children[j].type = 'submenu';
+            }
+        }
+        return menu;
+    }
+
+    var treeRootId = 'root';
+    var treeElement = $('#menu-tree');
+    if (treeElement.length) {
+        treeElement.jstree({
+            core: {
+                animation: 0,
+                multiple: false,
+                check_callback: true,
+                data: [{
+                    id: treeRootId,
+                    text: $('#menu-root').val(),
+                    type: 'root',
+                    state: {opened : true},
+                    children: getMenu()
+                }]
+            },
+            types: {
+                root: {valid_children: ['menu']},            
+                menu: {valid_children: ['submenu']},
+                submenu: {icon: 'glyphicon glyphicon-file', valid_children: []}
+            },
+            plugins: ['types']
+        });
+        var tree = treeElement.jstree(true);
+    }
+    var currentNode;
+
+    $('#menu-create').on('click', function(){
+        var sel = tree.get_selected();
+        if (sel.length && sel[0] !== treeRootId) { 
+            sel = tree.create_node(sel[0], {type: 'submenu'});
+        } else {            
+            sel = tree.create_node(treeRootId, {type: 'menu'});
+        }
+        if (sel) {
+            tree.edit(sel);
+        }
+    });
+
+    $('#menu-rename').on('click', function(){
+        var sel = tree.get_selected();
+        if (sel.length) { 
+            tree.edit(sel[0]);
+        }
+    });
+
+    $('#menu-delete').on('click', function(){
+        var sel = tree.get_selected();
+        if (sel.length) { 
+            tree.delete_node(sel);
+        }
+    });
+
+    $('.index-form').on('submit', function(){
+        var raw = tree.get_json();
+        var menu = raw[0].children;
+        for (var i = 0; i < menu.length; i++) {
+            menu[i].link = menu[i].data;
+            for (var j = 0; j < menu[i].children.length; j++) {
+                menu[i].children[j].link = menu[i].children[j].data;
+            }
+        }
+        $('#new-items').val(JSON.stringify(menu));
+    });
+
+    treeElement.on('select_node.jstree', function(e, data){
+        currentNode = data.node;
+        $('#item-link').val(currentNode.data);
+        $('.item-link-block').css('visibility', 'visible');
+    });
+
+    $('#item-change').on('click', function(){
+        currentNode.data = $('#item-link').val();
+    });
+
+    $('#is-news').on('change', function(){
+        $('#page-short').toggle( $(this).is(':checked') );
+    });
 });

@@ -16,6 +16,10 @@ class AdminController extends BaseController {
         return hash('sha256', $string, false);
     }
 
+    protected function getNews() {
+        return array();
+    }
+
     protected function userExists($users, $login) {
         $exists = false;
         foreach ($users->entities as $user) {
@@ -41,8 +45,43 @@ class AdminController extends BaseController {
         }
     }
 
+    protected function getNewMenu() {
+        $result = array();
+        $raw = json_decode($this->request->getPost('new_items'));
+        foreach ($raw as $menu) {
+            $children = array();
+            foreach ($menu->children as $submenu) {
+                $children[] = array(
+                    'id' => $submenu->id,
+                    'text' => $submenu->text,
+                    'link' => $submenu->link,
+                );
+            }
+            $result[] = array(
+                'id' => $menu->id,
+                'text' => $menu->text,
+                'link' => $menu->link,
+                'children' => $children,
+            );
+        }
+        return $result;
+    }
+
     public function indexAction() {
-        ;
+        $this->addJs('jstree.min.js');
+        $this->addCss('jstree/style.min.css');
+        $this->data['saved'] = false;
+        if ($this->request->isPost()) {
+            $model = new \App\Models\Settings();
+            $model->entities = $this->getNewMenu();
+            $model->title = $this->request->getPost('title');
+            $this->storage->write($model);
+            $this->data['saved'] = true;
+        }
+        $settings = $this->storage->read('settings');
+        $this->data['pages'] = $pages = $this->storage->read('pages')->entities;
+        $this->data['title'] = $settings->title;
+        $this->data['menu'] = json_encode($settings->entities);
     }
 
     public function loginAction() {
@@ -76,40 +115,6 @@ class AdminController extends BaseController {
         $this->data['pages'] = $pages->entities;
     }
 
-    public function pagesSortAction() {
-        $order = $this->request->getPost('order');
-        $pages = $this->storage->read('pages');
-        $newPages = array();
-        foreach ($order as $id) {
-            foreach ($pages->entities as $page) {
-                if ($page->id == $id) {
-                    $newPages[] = $page;
-                    break;
-                }
-            }
-        }
-        $model = new Pages;
-        $model->entities = $newPages;
-        $this->data['success'] = $this->storage->write($model);
-        $this->renderJson = true;
-    }
-
-    public function pagesMenuAction() {
-        $id = $this->request->getPost('id');
-        $enabled = $this->request->getPost('enabled') === 'true';
-        $pages = $this->storage->read('pages');
-        foreach ($pages->entities as &$page) {
-            if ($page->id == $id) {
-                $page->menu = $enabled;
-                break;
-            }
-        }
-        $model = new Pages;
-        $model->entities = $pages->entities;
-        $this->data['success'] = $this->storage->write($model);        
-        $this->renderJson = true;
-    }
-
     public function pagesDeleteAction() {
         $id = $this->request->getPost('id');
         $pages = $this->storage->read('pages');
@@ -133,14 +138,18 @@ class AdminController extends BaseController {
         $url = $this->request->getPost('url', $page ? $page->url : null);
         $oldUrl = $this->request->getPost('oldUrl', $page ? $page->url : null);
         $title = $this->request->getPost('title', $page ? $page->title : null);
+        $short = $this->request->getPost('short', $page ? $page->short : null);
         $content = $this->request->getPost('content', $page ? $page->content : null);
+        $news = $this->request->isPost() ? (bool)$this->request->getPost('news') : ($page ? $page->news : false);
         $errorMessage = null;
-        
+
         if ($this->request->isPost()) {
             $page = new Page;
             $page->url = $url;
             $page->title = $title;
+            $page->short = $short;
             $page->content = $content;
+            $page->news = $news;
             if ($checkUnique) {
                 $this->storage->validateUnique($page);
             }
@@ -157,7 +166,9 @@ class AdminController extends BaseController {
                         'id' => $url,
                         'url' => "/pages/$url",
                         'title' => $title,
-                        'menu' => false,
+                        'short' => $short,
+                        'news' => $news,
+                        'date' => time(),
                     );
                 } else {
                     foreach ($oldPages as &$oldPage) {
@@ -166,12 +177,15 @@ class AdminController extends BaseController {
                                 'id' => $url,
                                 'url' => "/pages/$url",
                                 'title' => $title,
-                                'menu' => $oldPage->menu,
+                                'short' => $short,
+                                'news' => $news,
+                                'date' => time()
                             );
                         }
                         $pages->entities[] = $oldPage;
                     }
                 }
+                $pages->sort();
                 $this->storage->write($pages);
                 return $this->redirect('/admin/pages');
             } else {
@@ -182,7 +196,9 @@ class AdminController extends BaseController {
             'errorMessage' => $errorMessage,
             'url' => $url,
             'oldUrl' => $oldUrl,
+            'news' => $news,
             'title' => $title,
+            'short' => $short,
             'content' => $content,
             'uploadFileUrl' => $this->storage->getUploadUrl('/admin/uploadfile'),
             'uploadImageUrl' => $this->storage->getUploadUrl('/admin/uploadimage'),

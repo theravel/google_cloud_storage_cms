@@ -1,0 +1,16 @@
+<div class="">
+    <h3><a href="/news"><?php echo $t('news_titile'); ?></a></h3>
+    <?php foreach ($layout['news'] as $item) { ?>
+        <div class="news-item">
+            <a href="<?php echo $item->url; ?>" class="news-title">
+                <?php echo $item->title; ?>
+            </a>
+            <p class="news-short">
+                <?php echo $item->short; ?>
+            </p>
+            <span class="news-date">
+                <?php echo date('Y-m-d H:i', $item->date); ?>
+            </span>
+        </div>
+    <?php } ?>
+</div>

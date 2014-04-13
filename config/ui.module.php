@@ -2,12 +2,10 @@
 
 return array(
     'locale' => array(
-        'language' => 'en',
+        'language' => 'ru',
     ),
-    'layout' => array(
-        'title' => 'Test CMS',
-        'name'  => 'Project name',
-        'footer_text'  => '&copy; Company 2014',
+    'news' => array(
+        'max_size' => 3,
     ),
     'engine_storage' => array(
         'type' => 'auto',
