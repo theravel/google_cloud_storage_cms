@@ -34,6 +34,7 @@ class Bootstrap {
             $layout = $controller->layoutData;
             $ext = $this->viewExtension;
             $prefix = dirname(__DIR__) . '/View';
+            include "$prefix/helpers.php";
             $view = "$prefix/{$controller->request->controllerName}/{$controller->request->actionName}.$ext";
             if ($controller->layout) {
                 include "$prefix/{$controller->layout}.$ext";

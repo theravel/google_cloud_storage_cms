@@ -51,10 +51,19 @@ class AdminController extends BaseController {
         foreach ($raw as $menu) {
             $children = array();
             foreach ($menu->children as $submenu) {
+                $subchildren = array();
+                foreach ($submenu->children as $subsubmenu) {                
+                    $subchildren[] = array(
+                        'id' => $subsubmenu->id,
+                        'text' => $subsubmenu->text,
+                        'link' => $subsubmenu->link,
+                    );
+                }
                 $children[] = array(
                     'id' => $submenu->id,
                     'text' => $submenu->text,
                     'link' => $submenu->link,
+                    'children' => $subchildren,
                 );
             }
             $result[] = array(

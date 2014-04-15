@@ -66,8 +66,14 @@ $(function(){
             menu[i].type = 'menu';
             menu[i].data = menu[i].link;
             for (var j = 0; j < menu[i].children.length; j++) {
-                menu[i].children[j].data = menu[i].children[j].link;
-                menu[i].children[j].type = 'submenu';
+                var item = menu[i].children[j];
+                item.data = item.link;
+                item.state = {opened : true};
+                item.type = 'submenu';
+                for (var k = 0; k < item.children.length; k++) {
+                    item.children[k].data = item.children[k].link;
+                    item.children[k].type = 'subsubmenu';
+                }
             }
         }
         return menu;
@@ -92,7 +98,8 @@ $(function(){
             types: {
                 root: {valid_children: ['menu']},            
                 menu: {valid_children: ['submenu']},
-                submenu: {icon: 'glyphicon glyphicon-file', valid_children: []}
+                submenu: {valid_children: ['subsubmenu']},
+                subsubmenu: {icon: 'glyphicon glyphicon-file', valid_children: []}
             },
             plugins: ['types']
         });
@@ -102,8 +109,9 @@ $(function(){
 
     $('#menu-create').on('click', function(){
         var sel = tree.get_selected();
-        if (sel.length && sel[0] !== treeRootId) { 
-            sel = tree.create_node(sel[0], {type: 'submenu'});
+        if (sel.length && sel[0] !== treeRootId) {
+            var type = tree.get_node(sel[0]).type == 'submenu' ? 'subsubmenu' : 'submenu';
+            sel = tree.create_node(sel[0], {type: type});
         } else {            
             sel = tree.create_node(treeRootId, {type: 'menu'});
         }
@@ -132,7 +140,11 @@ $(function(){
         for (var i = 0; i < menu.length; i++) {
             menu[i].link = menu[i].data;
             for (var j = 0; j < menu[i].children.length; j++) {
-                menu[i].children[j].link = menu[i].children[j].data;
+                var item = menu[i].children[j];
+                item.link = item.data;
+                for (var k = 0; k < item.children.length; k++) {
+                    item.children[k].link = item.children[k].data;
+                }
             }
         }
         $('#new-items').val(JSON.stringify(menu));
