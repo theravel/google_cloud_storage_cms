@@ -60,6 +60,7 @@
 }
 .tree-buttons {
     margin: 0 0 10px 0;
+    vertical-align: top;
 }
 .tree-buttons button {
     text-transform: capitalize;
@@ -72,4 +73,8 @@
 #item-link {
     min-width: 200px;
     padding: 3px 0;
+}
+#external-link {
+    width: 200px;
+    display: none;
 }

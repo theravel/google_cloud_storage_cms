@@ -49,4 +49,5 @@ return array(
     'admin_index_menu' => 'Main menu',
     'admin_index_menu_root' => 'Menu',
     'news_titile' => 'News',
+    'external_link' => 'External link',
 );

@@ -1,9 +1,9 @@
 $(function(){
-    $('.nav > li')
+    $('.nav li')
         .on('mouseenter', function() {
-            $(this).find('.submenu').fadeIn(300);
+            $(this).find('> .submenu').fadeIn(300);
         })
         .on('mouseleave', function() {
-            $(this).find('.submenu').fadeOut(300);
+            $(this).find('> .submenu').fadeOut(300);
         });
 });

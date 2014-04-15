@@ -49,4 +49,5 @@ return array(
     'admin_index_menu' => 'Главное меню',
     'admin_index_menu_root' => 'Меню',
     'news_titile' => 'Новости',
+    'external_link' => 'Внешняя ссылка',
 );

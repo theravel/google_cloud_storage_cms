@@ -17,7 +17,7 @@
         <div class="navbar navbar-inverse project-name" role="navigation">
             <div class="container">
                 <div class="collapse navbar-collapse">
-                    <a href="/"><?php echo nl2br($layout['name']); ?></a>
+                    <a href="/"><?php echo nl2br(str_replace(' ', '&nbsp;', $layout['name'])); ?></a>
                 </div>
             </div>
         </div>
@@ -41,6 +41,13 @@
                                             <a href="<?php echo $submenu->link; ?>">
                                                 <?php echo $submenu->text; ?>
                                             </a>
+                                            <!--
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="#">hh</a>
+                                                </li>
+                                            </ul>
+                                            -->
                                         </li>
                                     <?php } ?>
                                     </ul>

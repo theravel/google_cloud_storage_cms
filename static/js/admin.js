@@ -141,14 +141,28 @@ $(function(){
     treeElement.on('select_node.jstree', function(e, data){
         currentNode = data.node;
         $('#item-link').val(currentNode.data);
+        if ($('#item-link').val() === null) {
+            $('#item-link').val('0');
+            $('#external-link').show().val(currentNode.data);
+        } else {
+            $('#external-link').hide();
+        }
         $('.item-link-block').css('visibility', 'visible');
     });
 
     $('#item-change').on('click', function(){
-        currentNode.data = $('#item-link').val();
+        if ($('#item-link').val() === '0') {
+            currentNode.data = $('#external-link').val();
+        } else {
+            currentNode.data = $('#item-link').val();
+        }
     });
 
     $('#is-news').on('change', function(){
         $('#page-short').toggle( $(this).is(':checked') );
+    });
+
+    $('#item-link').on('change', function(){
+        $('#external-link').toggle($(this).val() === '0');
     });
 });

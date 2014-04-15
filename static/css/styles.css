@@ -50,6 +50,7 @@ body {
 }
 .submenu li {
     list-style-type: none;
+    position: relative;
 }
 .nav > li > a {
     color: #fff !important;
@@ -66,4 +67,8 @@ body {
 }
 .news-date {
     font-size: 10px;
+}
+.submenu .submenu {
+    top: 0;
+    right: -100px;
 }

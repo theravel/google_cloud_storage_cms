@@ -25,13 +25,15 @@
             </button>
             <div class="item-link-block">
                 <select id="item-link">
-                    <option value=""></option>
+                    <option value=""></option>                    
+                    <option value="0"><?php echo $t('external_link'); ?></option>
                     <?php foreach ($data['pages'] as $page) { ?>
                         <option value="<?php echo $page->url; ?>">
                             <?php echo $page->title; ?>
                         </option>
                     <?php } ?>
-                </select>
+                </select>                
+                <input id="external-link" />
                 <button type="button" class="btn btn-success btn-sm" id="item-change">
                     <?php echo $t('common_save'); ?>
                 </button>
