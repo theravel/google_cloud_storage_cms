@@ -60,7 +60,6 @@ body {
     padding: 8px 15px;
     color: #fff;
     display: block;
-    white-space: nowrap;
     cursor: pointer;
 }
 .news-item {
