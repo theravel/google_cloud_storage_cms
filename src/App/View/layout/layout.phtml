@@ -17,7 +17,7 @@
         <div class="navbar navbar-inverse project-name" role="navigation">
             <div class="container">
                 <div class="collapse navbar-collapse">
-                    <a href="/"><?php echo nl2br(str_replace(' ', '&nbsp;', $layout['name'])); ?></a>
+                    <a href="/"><?php echo $layout['name']; ?></a>
                 </div>
             </div>
         </div>
@@ -35,10 +35,12 @@
 
         <div class="container">
             <div class="row row-offcanvas row-offcanvas-right user-page-content">
-                <div class="col-xs-12 col-sm-9">
+                <?php if (empty($layout['news'])) { ?>
                     <?php include $view; ?>
-                </div>
-                <?php if (!empty($layout['news'])) { ?>
+                <?php } else { ?>                    
+                    <div class="col-xs-12 col-sm-9">
+                        <?php include $view; ?>
+                    </div>
                     <div class="col-xs-6 col-sm-3 sidebar-offcanvas news-sidebar">
                         <h3><a href="/news"><?php echo $t('news_titile'); ?></a></h3>
                         <?php foreach ($layout['news'] as $item) { ?>

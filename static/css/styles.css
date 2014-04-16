@@ -11,6 +11,7 @@ body {
 .project-name a {
     text-decoration: none;
     color: #ccc;
+    white-space: pre;
 }
 .main-menu {
     background: #555;

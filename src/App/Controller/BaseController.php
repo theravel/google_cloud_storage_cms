@@ -41,7 +41,7 @@ class BaseController {
         $this->layoutData['title'] = $settings->title;
         $this->layoutData['name'] = $settings->title;
         $this->layoutData['menu'] = $settings->entities;
-        $this->layoutData['news'] = $settings = $this->getNews();
+        $this->layoutData['news'] = $this->getNews();
     }
 
     private function addLayoutEntity($type, array $values) {
