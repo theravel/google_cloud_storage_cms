@@ -45,33 +45,26 @@ class AdminController extends BaseController {
         }
     }
 
+    protected function processMenuItem($item) {
+        $children = array();
+        if (!empty($item->children)) {
+            foreach ($item->children as $submenu) {
+                $children[] = $this->processMenuItem($submenu);
+            }
+        }
+        return array(
+            'id' => $item->id,
+            'text' => $item->text,
+            'link' => $item->link,
+            'children' => $children,
+        );
+    }
+
     protected function getNewMenu() {
         $result = array();
         $raw = json_decode($this->request->getPost('new_items'));
         foreach ($raw as $menu) {
-            $children = array();
-            foreach ($menu->children as $submenu) {
-                $subchildren = array();
-                foreach ($submenu->children as $subsubmenu) {                
-                    $subchildren[] = array(
-                        'id' => $subsubmenu->id,
-                        'text' => $subsubmenu->text,
-                        'link' => $subsubmenu->link,
-                    );
-                }
-                $children[] = array(
-                    'id' => $submenu->id,
-                    'text' => $submenu->text,
-                    'link' => $submenu->link,
-                    'children' => $subchildren,
-                );
-            }
-            $result[] = array(
-                'id' => $menu->id,
-                'text' => $menu->text,
-                'link' => $menu->link,
-                'children' => $children,
-            );
+            $result[] = $this->processMenuItem($menu);
         }
         return $result;
     }

@@ -61,20 +61,18 @@ $(function(){
 
     var getMenu = function() {
         var menu = JSON.parse($('#menu-items').val());
-        for (var i = 0; i < menu.length; i++) {
-            menu[i].state = {opened : true};
-            menu[i].type = 'menu';
-            menu[i].data = menu[i].link;
-            for (var j = 0; j < menu[i].children.length; j++) {
-                var item = menu[i].children[j];
-                item.data = item.link;
-                item.state = {opened : true};
-                item.type = 'submenu';
-                for (var k = 0; k < item.children.length; k++) {
-                    item.children[k].data = item.children[k].link;
-                    item.children[k].type = 'subsubmenu';
+        var processItem = function(item) {
+            item.data = item.link;
+            item.state = {opened : true};
+            item.type = 'menu';
+            if (item.children) {
+                for (var i = 0; i < item.children.length; i++) {
+                    processItem(item.children[i]);
                 }
             }
+        }
+        for (var i = 0; i < menu.length; i++) {
+            processItem(menu[i]);
         }
         return menu;
     }
@@ -97,11 +95,9 @@ $(function(){
             },
             types: {
                 root: {valid_children: ['menu']},            
-                menu: {valid_children: ['submenu']},
-                submenu: {valid_children: ['subsubmenu']},
-                subsubmenu: {icon: 'glyphicon glyphicon-file', valid_children: []}
+                menu: {valid_children: ['menu']}
             },
-            plugins: ['types']
+            plugins: ['types', 'dnd']
         });
         var tree = treeElement.jstree(true);
     }
@@ -110,8 +106,7 @@ $(function(){
     $('#menu-create').on('click', function(){
         var sel = tree.get_selected();
         if (sel.length && sel[0] !== treeRootId) {
-            var type = tree.get_node(sel[0]).type == 'submenu' ? 'subsubmenu' : 'submenu';
-            sel = tree.create_node(sel[0], {type: type});
+            sel = tree.create_node(sel[0], {type: 'menu'});
         } else {            
             sel = tree.create_node(treeRootId, {type: 'menu'});
         }
@@ -137,15 +132,16 @@ $(function(){
     $('.index-form').on('submit', function(){
         var raw = tree.get_json();
         var menu = raw[0].children;
-        for (var i = 0; i < menu.length; i++) {
-            menu[i].link = menu[i].data;
-            for (var j = 0; j < menu[i].children.length; j++) {
-                var item = menu[i].children[j];
-                item.link = item.data;
-                for (var k = 0; k < item.children.length; k++) {
-                    item.children[k].link = item.children[k].data;
+        var processItem = function(item) {
+            item.link = item.data;
+            if (item.children) {
+                for (var i = 0; i < item.children.length; i++) {
+                    processItem(item.children[i]);
                 }
             }
+        }
+        for (var i = 0; i < menu.length; i++) {
+            processItem(menu[i]);
         }
         $('#new-items').val(JSON.stringify(menu));
     });

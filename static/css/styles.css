@@ -36,8 +36,8 @@ body {
     text-decoration: none;
 }
 .nav > li a:hover,
-.nav > li > span:hover {
-    background: #888;
+.nav > li span:hover {
+    background: #888 !important;
 }
 .submenu {
     display: none;
@@ -55,9 +55,13 @@ body {
 .nav > li > a {
     color: #fff !important;
 }
-.nav > li .submenu a {
+.nav > li .submenu a,
+.nav > li .submenu span {
     padding: 8px 15px;
     color: #fff;
+    display: block;
+    white-space: nowrap;
+    cursor: pointer;
 }
 .news-item {
     margin: 0 0 15px 0;

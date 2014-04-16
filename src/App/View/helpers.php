@@ -11,10 +11,12 @@ function showMenuItem($item) {
             <span>
                 <?php echo $item->text; ?>
             </span>
+        <?php } ?>
+        <?php if (!empty($item->children)) { ?>
             <ul class="submenu navbar-inverse">
-            <?php foreach ($item->children as $submenu) { ?>
-                <?php showMenuItem($submenu); ?>
-            <?php } ?>
+                <?php foreach ($item->children as $submenu) { ?>
+                    <?php showMenuItem($submenu); ?>
+                <?php } ?>
             </ul>
         <?php } ?>
     </li>
