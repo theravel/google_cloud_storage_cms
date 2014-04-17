@@ -1,5 +1,8 @@
 body {
-    ;
+    padding-bottom: 20px;
+}
+footer {
+    font-size: 12px;
 }
 .project-name {
     background: #222;
@@ -8,10 +11,18 @@ body {
     margin: 0;
     border-radius: 0;
 }
+.project-name .collapse {
+    position: relative;
+}
 .project-name a {
     text-decoration: none;
     color: #ccc;
     white-space: pre;
+}
+.project-name .logo {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 .main-menu {
     background: #555;
@@ -62,6 +73,7 @@ body {
     color: #fff;
     display: block;
     cursor: pointer;
+    white-space: nowrap;
 }
 .news-item {
     margin: 0 0 15px 0;
